@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QLess | Smart Laundry Dashboard</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f7f5fc;
+    color: #292044;
+}
+
+.sidebar {
+    width: 245px;
+    height: 100vh;
+    background: #27105b;
+    color: white;
+    position: fixed;
+    padding: 28px 18px;
+}
+
+.logo {
+    font-size: 27px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.logo span {
+    color: #f5ca55;
+}
+
+.subtitle {
+    font-size: 11px;
+    color: #c9bce8;
+    margin-bottom: 45px;
+}
+
+.menu-title {
+    font-size: 11px;
+    color: #b9a9df;
+    margin: 25px 10px 12px;
+    text-transform: uppercase;
+}
+
+.menu a {
+    display: block;
+    color: #ded6f2;
+    text-decoration: none;
+    padding: 14px 13px;
+    margin: 5px 0;
+    border-radius: 9px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.menu a:hover,
+.menu a.active {
+    background: #7044bd;
+    color: white;
+}
+
+.main {
+    margin-left: 245px;
+    padding: 30px 38px;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35px;
+}
+
+.topbar h2 {
+    font-size: 25px;
+}
+
+.topbar p {
+    color: #827a95;
+    font-size: 13px;
+    margin-top: 7px;
+}
+
+.admin {
+    background: white;
+    padding: 12px 18px;
+    border-radius: 12px;
+    font-size: 13px;
+    box-shadow: 0 3px 15px #ddd5ed;
+}
+
+.welcome {
+    background: linear-gradient(110deg, #5426a3, #8a60d2);
+    color: white;
+    padding: 30px;
+    border-radius: 18px;
+    margin-bottom: 28px;
+    position: relative;
+}
+
+.welcome h1 {
+    font-size: 26px;
+    margin-bottom: 10px;
+}
+
+.welcome p {
+    color: #eee7ff;
+    font-size: 14px;
+}
+
+.welcome .tag {
+    display: inline-block;
+    margin-top: 20px;
+    background: #f5ca55;
+    color: #39216c;
+    padding: 9px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.section-title {
+    margin: 25px 0 18px;
+    font-size: 18px;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+}
+
+.card {
+    background: white;
+    padding: 23px;
+    border-radius: 15px;
+    box-shadow: 0 3px 15px #e9e2f2;
+}
+
+.card small {
+    color: #888096;
+    font-size: 12px;
+}
+
+.card h2 {
+    font-size: 29px;
+    margin: 13px 0 8px;
+    color: #51299b;
+}
+
+.card p {
+    font-size: 11px;
+    color: #8b8397;
+}
+
+.machine-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+.machine {
+    background: white;
+    border-radius: 13px;
+    padding: 19px;
+    box-shadow: 0 3px 12px #e9e2f2;
+}
+
+.machine h3 {
+    font-size: 15px;
+    margin-bottom: 13px;
+}
+
+.machine .icon {
+    font-size: 30px;
+    margin-bottom: 12px;
+}
+
+.status {
+    display: inline-block;
+    padding: 7px 11px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.available {
+    background: #d8f6e6;
+    color: #16834b;
+}
+
+.reserved {
+    background: #fff0c9;
+    color: #a36c00;
+}
+
+.inuse {
+    background: #e7dcff;
+    color: #6736af;
+}
+
+.maintenance {
+    background: #ffe0e0;
+    color: #bb3434;
+}
+
+.table-box {
+    background: white;
+    border-radius: 15px;
+    padding: 23px;
+    margin-top: 28px;
+    box-shadow: 0 3px 15px #e9e2f2;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 18px;
+    font-size: 13px;
+}
+
+th, td {
+    padding: 15px 12px;
+    text-align: left;
+    border-bottom: 1px solid #eeeaf4;
+}
+
+th {
+    color: #857a98;
+    font-size: 11px;
+}
+
+button {
+    border: none;
+    background: #6437b0;
+    color: white;
+    padding: 9px 15px;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #472080;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 40px;
+    padding: 20px;
+    color: #9289a0;
+    font-size: 12px;
+}
+
+@media(max-width: 1000px) {
+    .stats, .machine-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(max-width: 650px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+
+    .subtitle, .menu-title {
+        display: none;
+    }
+
+    .menu {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .menu a {
+        padding: 10px;
+    }
+
+    .main {
+        margin-left: 0;
+        padding: 20px;
+    }
+
+    .stats, .machine-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .topbar {
+        gap: 15px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<aside class="sidebar">
+
+    <div class="logo">Q<span>Less.</span></div>
+    <div class="subtitle">SMART LAUNDRY MANAGEMENT</div>
+
+    <div class="menu-title">Main Menu</div>
+
+    <nav class="menu">
+        <a class="active" href="#overview">▦ Overview</a>
+        <a href="#machines">▣ Machine Management</a>
+        <a href="#bookings">▤ Booking Management</a>
+        <a href="#analytics">▥ Analytics</a>
+    </nav>
+
+    <div class="menu-title">System</div>
+
+    <nav class="menu">
+        <a href="#settings">⚙ Settings</a>
+    </nav>
+
+</aside>
+
+<main class="main">
+
+    <header class="topbar">
+        <div>
+            <h2>Dashboard Overview</h2>
+            <p>Monitor your laundry operations in one place.</p>
+        </div>
+
+        <div class="admin">👤 Admin Account</div>
+    </header>
+
+    <section class="welcome" id="overview">
+
+        <h1>Welcome to QLess! 👋</h1>
+
+        <p>
+            Manage your laundry machines, bookings and daily
+            operations with a smarter system.
+        </p>
+
+        <div class="tag">
+            LESS WAITING, MORE CONVENIENCE
+        </div>
+
+    </section>
+
+    <h3 class="section-title">Laundry Overview</h3>
+
+    <section class="stats">
+
+        <div class="card">
+            <small>Total Machines</small>
+            <h2>10</h2>
+            <p>Registered machines</p>
+        </div>
+
+        <div class="card">
+            <small>Available Machines</small>
+            <h2>4</h2>
+            <p>Ready for booking</p>
+        </div>
+
+        <div class="card">
+            <small>Reserved Machines</small>
+            <h2>3</h2>
+            <p>Waiting for customers</p>
+        </div>
+
+        <div class="card">
+            <small>Machines In Use</small>
+            <h2>3</h2>
+            <p>Currently operating</p>
+        </div>
+
+    </section>
+
+    <h3 class="section-title" id="machines">
+        Machine Management
+    </h3>
+
+    <section class="machine-grid">
+
+        <div class="machine">
+            <div class="icon">🫧</div>
+            <h3>Washer 01</h3>
+            <span class="status available">Available</span>
+        </div>
+
+        <div class="machine">
+            <div class="icon">🫧</div>
+            <h3>Washer 02</h3>
+            <span class="status reserved">Reserved</span>
+        </div>
+
+        <div class="machine">
+            <div class="icon">🫧</div>
+            <h3>Washer 03</h3>
+            <span class="status inuse">In Use</span>
+        </div>
+
+        <div class="machine">
+            <div class="icon">🫧</div>
+            <h3>Washer 04</h3>
+            <span class="status available">Available</span>
+        </div>
+
+        <div class="machine">
+            <div class="icon">🫧</div>
+            <h3>Washer 05</h3>
+            <span class="status inuse">In Use</span>
+        </div>
+
+        <div class="machine">
+            <div class="icon">🫧</div>
+            <h3>Washer 06</h3>
+            <span class="status reserved">Reserved</span>
+        </div>
+
+        <div class="machine">
+            <div class="icon">🫧</div>
+            <h3>Dryer 01</h3>
+            <span class="status available">Available</span>
+        </div>
+
+        <div class="machine">
+            <div class="icon">🫧</div>
+            <h3>Dryer 02</h3>
+            <span class="status maintenance">Maintenance</span>
+        </div>
+
+    </section>
+
+    <section class="table-box" id="bookings">
+
+        <h3>Recent Bookings</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Booking ID</th>
+                    <th>Customer</th>
+                    <th>Machine</th>
+                    <th>Booking Time</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>QL001</td>
+                    <td>Customer 01</td>
+                    <td>Washer 02</td>
+                    <td>10:30 AM</td>
+                    <td><span class="status reserved">Reserved</span></td>
+                </tr>
+
+                <tr>
+                    <td>QL002</td>
+                    <td>Customer 02</td>
+                    <td>Washer 03</td>
+                    <td>10:45 AM</td>
+                    <td><span class="status inuse">In Use</span></td>
+                </tr>
+
+                <tr>
+                    <td>QL003</td>
+                    <td>Customer 03</td>
+                    <td>Dryer 01</td>
+                    <td>11:00 AM</td>
+                    <td><span class="status available">Completed</span></td>
+                </tr>
+            </tbody>
+
+        </table>
+
+    </section>
+
+    <section class="table-box" id="analytics">
+        <h3>Booking Analytics</h3>
+        <p style="margin-top:15px;color:#827a95;font-size:13px;">
+            Sample weekly booking activity
+        </p>
+
+        <div style="display:flex;align-items:end;gap:15px;height:150px;margin-top:25px;">
+
+            <div style="background:#8052c6;height:45%;flex:1;border-radius:7px 7px 0 0;"></div>
+            <div style="background:#8052c6;height:65%;flex:1;border-radius:7px 7px 0 0;"></div>
+            <div style="background:#8052c6;height:55%;flex:1;border-radius:7px 7px 0 0;"></div>
+            <div style="background:#8052c6;height:85%;flex:1;border-radius:7px 7px 0 0;"></div>
+            <div style="background:#8052c6;height:70%;flex:1;border-radius:7px 7px 0 0;"></div>
+            <div style="background:#8052c6;height:100%;flex:1;border-radius:7px 7px 0 0;"></div>
+            <div style="background:#f0c44f;height:80%;flex:1;border-radius:7px 7px 0 0;"></div>
+
+        </div>
+
+        <div style="display:flex;justify-content:space-around;margin-top:12px;font-size:11px;color:#827a95;">
+            <span>Mon</span>
+            <span>Tue</span>
+            <span>Wed</span>
+            <span>Thu</span>
+            <span>Fri</span>
+            <span>Sat</span>
+            <span>Sun</span>
+        </div>
+    </section>
+
+    <div class="footer" id="settings">
+        QLess Smart Laundry Queue Management System
+        <br><br>
+        Less Waiting, More Convenience.
+        <br>
+        © 2026 QLess. All Rights Reserved.
+    </div>
+
+</main>
+
+<script>
+document.querySelectorAll(".menu a").forEach(link => {
+    link.addEventListener("click", function() {
+        document.querySelectorAll(".menu a").forEach(item => {
+            item.classList.remove("active");
+        });
+
+        this.classList.add("active");
+    });
+});
+</script>
+
+</body>
+</html>
