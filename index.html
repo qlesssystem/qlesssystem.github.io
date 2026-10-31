@@ -3,9 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>QLess | Smart Laundry Dashboard</title>
+<meta name="theme-color" content="#102A63">
+<title>QLess | Smart Laundry Management</title>
 
 <style>
+:root {
+    --blue: #102A63;
+    --navy: #091B3A;
+    --royal: #1D4E9E;
+    --gold: #D4AF37;
+    --light: #F3F6FC;
+    --white: #FFFFFF;
+    --text: #172B4D;
+    --muted: #71809A;
+    --green: #16865A;
+    --red: #C74444;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -14,151 +28,199 @@
 }
 
 body {
-    background: #f7f5fc;
-    color: #292044;
+    background: var(--light);
+    color: var(--text);
 }
 
 .sidebar {
     width: 245px;
-    height: 100vh;
-    background: #27105b;
+    min-height: 100vh;
+    background: var(--navy);
     color: white;
     position: fixed;
-    padding: 28px 18px;
+    top: 0;
+    left: 0;
+    padding: 27px 17px;
+    z-index: 10;
 }
 
 .logo {
-    font-size: 27px;
+    font-size: 29px;
     font-weight: bold;
-    margin-bottom: 8px;
+    margin-bottom: 5px;
 }
 
 .logo span {
-    color: #f5ca55;
+    color: var(--gold);
 }
 
 .subtitle {
-    font-size: 11px;
-    color: #c9bce8;
-    margin-bottom: 45px;
+    font-size: 10px;
+    color: #B9C8E5;
+    margin-bottom: 40px;
+    letter-spacing: 1px;
 }
 
 .menu-title {
-    font-size: 11px;
-    color: #b9a9df;
+    color: #9DAED0;
+    font-size: 10px;
     margin: 25px 10px 12px;
-    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .menu a {
     display: block;
-    color: #ded6f2;
+    color: #DCE5F5;
     text-decoration: none;
-    padding: 14px 13px;
+    padding: 14px 12px;
     margin: 5px 0;
     border-radius: 9px;
-    font-size: 14px;
+    font-size: 13px;
     cursor: pointer;
+    transition: .25s;
 }
 
 .menu a:hover,
 .menu a.active {
-    background: #7044bd;
+    background: var(--royal);
     color: white;
+    border-left: 3px solid var(--gold);
 }
 
 .main {
     margin-left: 245px;
-    padding: 30px 38px;
+    padding: 30px 35px;
 }
 
 .topbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 35px;
+    margin-bottom: 28px;
+    gap: 15px;
 }
 
 .topbar h2 {
     font-size: 25px;
+    color: var(--navy);
 }
 
 .topbar p {
-    color: #827a95;
+    color: var(--muted);
     font-size: 13px;
     margin-top: 7px;
 }
 
 .admin {
     background: white;
-    padding: 12px 18px;
-    border-radius: 12px;
+    padding: 13px 18px;
+    border-radius: 10px;
+    box-shadow: 0 3px 12px #dce3ef;
     font-size: 13px;
-    box-shadow: 0 3px 15px #ddd5ed;
 }
 
 .welcome {
-    background: linear-gradient(110deg, #5426a3, #8a60d2);
+    background: linear-gradient(110deg, #102A63, #2861AE);
     color: white;
-    padding: 30px;
-    border-radius: 18px;
+    padding: 32px;
+    border-radius: 17px;
     margin-bottom: 28px;
-    position: relative;
+    animation: fadeIn .8s ease;
+    border-bottom: 4px solid var(--gold);
 }
 
 .welcome h1 {
-    font-size: 26px;
+    font-size: 27px;
     margin-bottom: 10px;
 }
 
 .welcome p {
-    color: #eee7ff;
+    color: #DDE8FA;
     font-size: 14px;
 }
 
-.welcome .tag {
+.gold-tag {
     display: inline-block;
-    margin-top: 20px;
-    background: #f5ca55;
-    color: #39216c;
-    padding: 9px 16px;
+    background: var(--gold);
+    color: var(--navy);
+    padding: 10px 17px;
     border-radius: 20px;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: bold;
+    margin-top: 20px;
 }
 
 .section-title {
-    margin: 25px 0 18px;
+    margin: 28px 0 17px;
+    color: var(--navy);
     font-size: 18px;
+}
+
+.location-panel {
+    background: white;
+    padding: 22px;
+    border-radius: 14px;
+    box-shadow: 0 3px 14px #e1e7f1;
+    margin-bottom: 25px;
+}
+
+.location-panel label {
+    display: block;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+select, input {
+    width: 100%;
+    max-width: 430px;
+    padding: 13px;
+    border: 1px solid #D5DDEA;
+    border-radius: 8px;
+    background: white;
+    color: var(--text);
+    font-size: 14px;
+}
+
+select:focus, input:focus {
+    outline: 2px solid var(--gold);
+    border-color: var(--royal);
 }
 
 .stats {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 18px;
+    gap: 17px;
 }
 
 .card {
     background: white;
-    padding: 23px;
-    border-radius: 15px;
-    box-shadow: 0 3px 15px #e9e2f2;
+    padding: 22px;
+    border-radius: 13px;
+    box-shadow: 0 3px 14px #E1E7F1;
+    transition: .25s;
+    animation: fadeIn .7s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    border-bottom: 3px solid var(--gold);
 }
 
 .card small {
-    color: #888096;
+    color: var(--muted);
     font-size: 12px;
 }
 
 .card h2 {
-    font-size: 29px;
-    margin: 13px 0 8px;
-    color: #51299b;
+    color: var(--royal);
+    font-size: 30px;
+    margin: 13px 0 7px;
 }
 
 .card p {
+    color: var(--muted);
     font-size: 11px;
-    color: #8b8397;
 }
 
 .machine-grid {
@@ -169,108 +231,234 @@ body {
 
 .machine {
     background: white;
+    padding: 20px;
     border-radius: 13px;
-    padding: 19px;
-    box-shadow: 0 3px 12px #e9e2f2;
+    box-shadow: 0 3px 13px #E1E7F1;
+    transition: .25s;
+}
+
+.machine:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px #CBD6E8;
 }
 
 .machine h3 {
-    font-size: 15px;
-    margin-bottom: 13px;
+    font-size: 14px;
+    margin-bottom: 12px;
 }
 
-.machine .icon {
-    font-size: 30px;
-    margin-bottom: 12px;
+.machine-icon {
+    width: 54px;
+    height: 54px;
+    border: 5px solid #B8C7DC;
+    border-radius: 50%;
+    background: radial-gradient(circle, #D8E4F4 30%, #688BB7 65%, #102A63 100%);
+    margin-bottom: 15px;
+    position: relative;
+    box-shadow: inset 0 0 8px #102A63;
+}
+
+.machine-icon.spinning {
+    animation: spin 1.3s linear infinite;
+}
+
+.machine-icon.reserved-icon {
+    border-color: var(--gold);
+}
+
+.machine-icon.maintenance-icon {
+    border-color: var(--red);
 }
 
 .status {
     display: inline-block;
     padding: 7px 11px;
     border-radius: 20px;
-    font-size: 11px;
+    font-size: 10px;
     font-weight: bold;
+    margin-bottom: 12px;
 }
 
 .available {
-    background: #d8f6e6;
-    color: #16834b;
+    background: #D8F5E7;
+    color: #16865A;
 }
 
 .reserved {
-    background: #fff0c9;
-    color: #a36c00;
+    background: #FFF0C9;
+    color: #A36C00;
 }
 
 .inuse {
-    background: #e7dcff;
-    color: #6736af;
+    background: #DDE9FF;
+    color: #2056A0;
 }
 
 .maintenance {
-    background: #ffe0e0;
-    color: #bb3434;
+    background: #FFE0E0;
+    color: #B83D3D;
+}
+
+.machine select {
+    font-size: 11px;
+    padding: 9px;
+    margin-top: 4px;
+}
+
+.machine small {
+    display: block;
+    color: var(--muted);
+    font-size: 10px;
+    margin-top: 9px;
 }
 
 .table-box {
     background: white;
-    border-radius: 15px;
+    border-radius: 14px;
     padding: 23px;
-    margin-top: 28px;
-    box-shadow: 0 3px 15px #e9e2f2;
+    margin-top: 25px;
+    box-shadow: 0 3px 14px #E1E7F1;
     overflow-x: auto;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 18px;
-    font-size: 13px;
+    margin-top: 17px;
+    font-size: 12px;
+    min-width: 500px;
 }
 
 th, td {
-    padding: 15px 12px;
+    padding: 14px 10px;
     text-align: left;
-    border-bottom: 1px solid #eeeaf4;
+    border-bottom: 1px solid #E9EDF4;
 }
 
 th {
-    color: #857a98;
+    color: var(--muted);
     font-size: 11px;
+}
+
+.ad-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 18px;
+}
+
+.ad-card {
+    background: white;
+    border: 1px solid #E1E7F1;
+    border-radius: 13px;
+    padding: 20px;
+    transition: .25s;
+}
+
+.ad-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-4px);
+}
+
+.ad-card h3 {
+    font-size: 14px;
+    margin-bottom: 9px;
+}
+
+.ad-card p {
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+.ad-price {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--royal);
+    margin: 15px 0;
 }
 
 button {
     border: none;
-    background: #6437b0;
+    background: var(--royal);
     color: white;
-    padding: 9px 15px;
+    padding: 11px 15px;
     border-radius: 7px;
     cursor: pointer;
+    font-size: 12px;
+    transition: .2s;
 }
 
 button:hover {
-    background: #472080;
+    background: var(--navy);
+}
+
+.gold-button {
+    background: var(--gold);
+    color: var(--navy);
+    font-weight: bold;
+}
+
+.gold-button:hover {
+    background: #B99426;
+}
+
+.notice {
+    background: #FFF8E5;
+    border-left: 4px solid var(--gold);
+    padding: 15px;
+    border-radius: 7px;
+    font-size: 12px;
+    line-height: 1.6;
+    margin-top: 20px;
+}
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+    animation: fadeIn .4s ease;
 }
 
 .footer {
     text-align: center;
+    color: var(--muted);
+    font-size: 11px;
     margin-top: 40px;
     padding: 20px;
-    color: #9289a0;
-    font-size: 12px;
 }
 
-@media(max-width: 1000px) {
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+@media(max-width:1100px) {
     .stats, .machine-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
-@media(max-width: 650px) {
+@media(max-width:700px) {
     .sidebar {
         width: 100%;
-        height: auto;
+        min-height: auto;
         position: relative;
+        padding: 17px;
     }
 
     .subtitle, .menu-title {
@@ -280,23 +468,40 @@ button:hover {
     .menu {
         display: flex;
         flex-wrap: wrap;
+        gap: 4px;
     }
 
     .menu a {
         padding: 10px;
+        font-size: 11px;
     }
 
     .main {
         margin-left: 0;
-        padding: 20px;
-    }
-
-    .stats, .machine-grid {
-        grid-template-columns: 1fr 1fr;
+        padding: 18px;
     }
 
     .topbar {
-        gap: 15px;
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .stats, .machine-grid, .ad-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .welcome {
+        padding: 23px;
+    }
+
+    .welcome h1 {
+        font-size: 21px;
+    }
+}
+
+@media(max-width:420px) {
+    .stats, .machine-grid, .ad-grid {
+        grid-template-columns: 1fr;
     }
 }
 </style>
@@ -309,229 +514,434 @@ button:hover {
     <div class="logo">Q<span>Less.</span></div>
     <div class="subtitle">SMART LAUNDRY MANAGEMENT</div>
 
-    <div class="menu-title">Main Menu</div>
+    <div class="menu-title">MAIN MENU</div>
 
     <nav class="menu">
-        <a class="active" href="#overview">▦ Overview</a>
-        <a href="#machines">▣ Machine Management</a>
-        <a href="#bookings">▤ Booking Management</a>
-        <a href="#analytics">▥ Analytics</a>
+        <a href="#overview" class="active" data-page="overview">▦ Overview</a>
+        <a href="#machines" data-page="machines">▣ Machine Management</a>
+        <a href="#bookings" data-page="bookings">▤ Booking Management</a>
+        <a href="#advertisements" data-page="advertisements">▧ Advertisements</a>
+        <a href="#analytics" data-page="analytics">▥ Analytics</a>
     </nav>
 
-    <div class="menu-title">System</div>
+    <div class="menu-title">SYSTEM</div>
 
     <nav class="menu">
-        <a href="#settings">⚙ Settings</a>
+        <a href="#settings" data-page="settings">⚙ Settings</a>
     </nav>
 
 </aside>
 
 <main class="main">
 
-    <header class="topbar">
-        <div>
-            <h2>Dashboard Overview</h2>
-            <p>Monitor your laundry operations in one place.</p>
-        </div>
+<header class="topbar">
+    <div>
+        <h2>QLess Admin Dashboard</h2>
+        <p>Smart Laundry Queue Management System</p>
+    </div>
+    <div class="admin">👤 Admin Account</div>
+</header>
 
-        <div class="admin">👤 Admin Account</div>
-    </header>
+<section class="page active" id="overview">
 
-    <section class="welcome" id="overview">
-
+    <div class="welcome">
         <h1>Welcome to QLess! 👋</h1>
+        <p>Manage your laundry operations with a smarter system.</p>
+        <div class="gold-tag">LESS WAITING, MORE CONVENIENCE</div>
+    </div>
 
-        <p>
-            Manage your laundry machines, bookings and daily
-            operations with a smarter system.
-        </p>
-
-        <div class="tag">
-            LESS WAITING, MORE CONVENIENCE
-        </div>
-
-    </section>
+    <div class="location-panel">
+        <label for="locationSelect">Choose Laundry Location</label>
+        <select id="locationSelect">
+            <option value="ibnu-hibban">Ibnu Hibban Laundry</option>
+            <option value="at-tarmizi">At-Tarmizi Hostel Laundry</option>
+            <option value="ibnu-khaldun">Ibnu Khaldun Laundry</option>
+            <option value="ibnu-sina">Ibnu Sina Hostel Laundry</option>
+        </select>
+    </div>
 
     <h3 class="section-title">Laundry Overview</h3>
 
-    <section class="stats">
-
+    <div class="stats">
         <div class="card">
             <small>Total Machines</small>
-            <h2>10</h2>
+            <h2 id="totalCount">8</h2>
             <p>Registered machines</p>
         </div>
 
         <div class="card">
             <small>Available Machines</small>
-            <h2>4</h2>
+            <h2 id="availableCount">3</h2>
             <p>Ready for booking</p>
         </div>
 
         <div class="card">
             <small>Reserved Machines</small>
-            <h2>3</h2>
+            <h2 id="reservedCount">2</h2>
             <p>Waiting for customers</p>
         </div>
 
         <div class="card">
             <small>Machines In Use</small>
-            <h2>3</h2>
+            <h2 id="inUseCount">2</h2>
             <p>Currently operating</p>
         </div>
+    </div>
 
-    </section>
+    <h3 class="section-title">Machine Status</h3>
+    <div class="machine-grid" id="overviewMachines"></div>
 
-    <h3 class="section-title" id="machines">
-        Machine Management
-    </h3>
+    <div class="notice">
+        <strong>Important:</strong> A reserved machine will only become operational
+        when the customer arrives and activates it through the QLess system.
+        A reservation alone does not start the washing machine.
+    </div>
 
-    <section class="machine-grid">
+</section>
 
-        <div class="machine">
-            <div class="icon">🫧</div>
-            <h3>Washer 01</h3>
-            <span class="status available">Available</span>
-        </div>
+<section class="page" id="machines">
 
-        <div class="machine">
-            <div class="icon">🫧</div>
-            <h3>Washer 02</h3>
-            <span class="status reserved">Reserved</span>
-        </div>
+    <h3 class="section-title">Machine Management</h3>
 
-        <div class="machine">
-            <div class="icon">🫧</div>
-            <h3>Washer 03</h3>
-            <span class="status inuse">In Use</span>
-        </div>
+    <div class="location-panel">
+        <label for="machineLocation">Select Laundry Location</label>
+        <select id="machineLocation">
+            <option value="ibnu-hibban">Ibnu Hibban Laundry</option>
+            <option value="at-tarmizi">At-Tarmizi Hostel Laundry</option>
+            <option value="ibnu-khaldun">Ibnu Khaldun Laundry</option>
+            <option value="ibnu-sina">Ibnu Sina Hostel Laundry</option>
+        </select>
+    </div>
 
-        <div class="machine">
-            <div class="icon">🫧</div>
-            <h3>Washer 04</h3>
-            <span class="status available">Available</span>
-        </div>
+    <p style="font-size:12px;color:#71809A;margin-bottom:15px;">
+        Admin can change machine status using the dropdown menu.
+    </p>
 
-        <div class="machine">
-            <div class="icon">🫧</div>
-            <h3>Washer 05</h3>
-            <span class="status inuse">In Use</span>
-        </div>
+    <div class="machine-grid" id="managementMachines"></div>
 
-        <div class="machine">
-            <div class="icon">🫧</div>
-            <h3>Washer 06</h3>
-            <span class="status reserved">Reserved</span>
-        </div>
+</section>
 
-        <div class="machine">
-            <div class="icon">🫧</div>
-            <h3>Dryer 01</h3>
-            <span class="status available">Available</span>
-        </div>
+<section class="page" id="bookings">
 
-        <div class="machine">
-            <div class="icon">🫧</div>
-            <h3>Dryer 02</h3>
-            <span class="status maintenance">Maintenance</span>
-        </div>
+    <h3 class="section-title">Booking Management</h3>
 
-    </section>
-
-    <section class="table-box" id="bookings">
-
+    <div class="table-box">
         <h3>Recent Bookings</h3>
-
         <table>
             <thead>
                 <tr>
                     <th>Booking ID</th>
                     <th>Customer</th>
+                    <th>Location</th>
                     <th>Machine</th>
-                    <th>Booking Time</th>
                     <th>Status</th>
                 </tr>
             </thead>
-
-            <tbody>
+            <tbody id="bookingRows">
                 <tr>
                     <td>QL001</td>
-                    <td>Customer 01</td>
+                    <td>Student 01</td>
+                    <td>Ibnu Hibban</td>
                     <td>Washer 02</td>
-                    <td>10:30 AM</td>
-                    <td><span class="status reserved">Reserved</span></td>
+                    <td>Reserved</td>
                 </tr>
-
                 <tr>
                     <td>QL002</td>
-                    <td>Customer 02</td>
+                    <td>Student 02</td>
+                    <td>Ibnu Hibban</td>
                     <td>Washer 03</td>
-                    <td>10:45 AM</td>
-                    <td><span class="status inuse">In Use</span></td>
+                    <td>In Use</td>
                 </tr>
-
                 <tr>
                     <td>QL003</td>
-                    <td>Customer 03</td>
-                    <td>Dryer 01</td>
-                    <td>11:00 AM</td>
-                    <td><span class="status available">Completed</span></td>
+                    <td>Student 03</td>
+                    <td>At-Tarmizi</td>
+                    <td>Washer 01</td>
+                    <td>Completed</td>
                 </tr>
             </tbody>
-
         </table>
-
-    </section>
-
-    <section class="table-box" id="analytics">
-        <h3>Booking Analytics</h3>
-        <p style="margin-top:15px;color:#827a95;font-size:13px;">
-            Sample weekly booking activity
-        </p>
-
-        <div style="display:flex;align-items:end;gap:15px;height:150px;margin-top:25px;">
-
-            <div style="background:#8052c6;height:45%;flex:1;border-radius:7px 7px 0 0;"></div>
-            <div style="background:#8052c6;height:65%;flex:1;border-radius:7px 7px 0 0;"></div>
-            <div style="background:#8052c6;height:55%;flex:1;border-radius:7px 7px 0 0;"></div>
-            <div style="background:#8052c6;height:85%;flex:1;border-radius:7px 7px 0 0;"></div>
-            <div style="background:#8052c6;height:70%;flex:1;border-radius:7px 7px 0 0;"></div>
-            <div style="background:#8052c6;height:100%;flex:1;border-radius:7px 7px 0 0;"></div>
-            <div style="background:#f0c44f;height:80%;flex:1;border-radius:7px 7px 0 0;"></div>
-
-        </div>
-
-        <div style="display:flex;justify-content:space-around;margin-top:12px;font-size:11px;color:#827a95;">
-            <span>Mon</span>
-            <span>Tue</span>
-            <span>Wed</span>
-            <span>Thu</span>
-            <span>Fri</span>
-            <span>Sat</span>
-            <span>Sun</span>
-        </div>
-    </section>
-
-    <div class="footer" id="settings">
-        QLess Smart Laundry Queue Management System
-        <br><br>
-        Less Waiting, More Convenience.
-        <br>
-        © 2026 QLess. All Rights Reserved.
     </div>
+
+</section>
+
+<section class="page" id="advertisements">
+
+    <div class="welcome">
+        <h1>Advertisement Management</h1>
+        <p>Promote brands and businesses through the QLess platform.</p>
+        <div class="gold-tag">ADVERTISE WITH QLESS</div>
+    </div>
+
+    <h3 class="section-title">Available Advertising Spaces</h3>
+
+    <div class="ad-grid">
+
+        <div class="ad-card">
+            <h3>Banner Advertisement 01</h3>
+            <p>Large banner displayed on the customer homepage.</p>
+            <div class="ad-price">Available</div>
+            <button onclick="requestAd('Homepage Banner')">Request Space</button>
+        </div>
+
+        <div class="ad-card">
+            <h3>Banner Advertisement 02</h3>
+            <p>Promotional banner displayed on the booking page.</p>
+            <div class="ad-price">Available</div>
+            <button onclick="requestAd('Booking Page Banner')">Request Space</button>
+        </div>
+
+        <div class="ad-card">
+            <h3>Promotional Space 03</h3>
+            <p>Special promotions and product advertisements.</p>
+            <div class="ad-price">Available</div>
+            <button onclick="requestAd('Promotional Space')">Request Space</button>
+        </div>
+
+    </div>
+
+    <div class="notice">
+        Advertising rental prices and campaign durations are yet to be determined.
+        Contact the QLess team to discuss advertising opportunities.
+    </div>
+
+</section>
+
+<section class="page" id="analytics">
+
+    <h3 class="section-title">Revenue & Usage Analytics</h3>
+
+    <div class="stats">
+        <div class="card">
+            <small>Total Bookings</small>
+            <h2>125</h2>
+            <p>Sample booking records</p>
+        </div>
+
+        <div class="card">
+            <small>Service Fee</small>
+            <h2>RM1</h2>
+            <p>Per queue reservation</p>
+        </div>
+
+        <div class="card">
+            <small>Illustrative Revenue</small>
+            <h2>RM125</h2>
+            <p>125 sample reservations</p>
+        </div>
+
+        <div class="card">
+            <small>Advertising Slots</small>
+            <h2>3</h2>
+            <p>Available spaces</p>
+        </div>
+    </div>
+
+    <div class="notice">
+        These figures are illustrative prototype data, not actual revenue or live transactions.
+    </div>
+
+</section>
+
+<section class="page" id="settings">
+
+    <h3 class="section-title">System Settings</h3>
+
+    <div class="card">
+        <h3>QLess System Information</h3>
+        <p style="margin-top:15px;">Platform: QLess Smart Laundry Management System</p>
+        <p style="margin-top:10px;">Theme: Royal Blue & Gold</p>
+        <p style="margin-top:10px;">Version: 2.0 Prototype</p>
+        <p style="margin-top:10px;">Hosting: GitHub Pages</p>
+    </div>
+
+</section>
+
+<footer class="footer">
+    QLess Smart Laundry Management System
+    <br><br>
+    Less Waiting, More Convenience.
+    <br>
+    © 2026 QLess. All Rights Reserved.
+</footer>
 
 </main>
 
 <script>
+
+const locations = {
+    "ibnu-hibban": [
+        ["Washer 01","Available"],
+        ["Washer 02","Reserved"],
+        ["Washer 03","In Use"],
+        ["Washer 04","Available"],
+        ["Washer 05","In Use"],
+        ["Washer 06","Reserved"],
+        ["Dryer 01","Available"],
+        ["Dryer 02","Maintenance"]
+    ],
+    "at-tarmizi": [
+        ["Washer 01","Available"],
+        ["Washer 02","In Use"],
+        ["Washer 03","Available"],
+        ["Washer 04","Reserved"],
+        ["Dryer 01","Available"],
+        ["Dryer 02","Maintenance"]
+    ],
+    "ibnu-khaldun": [
+        ["Washer 01","Available"],
+        ["Washer 02","Available"],
+        ["Washer 03","Reserved"],
+        ["Dryer 01","In Use"]
+    ],
+    "ibnu-sina": [
+        ["Washer 01","In Use"],
+        ["Washer 02","Available"],
+        ["Dryer 01","Available"],
+        ["Dryer 02","Reserved"]
+    ]
+};
+
+const locationNames = {
+    "ibnu-hibban": "Ibnu Hibban Laundry",
+    "at-tarmizi": "At-Tarmizi Hostel Laundry",
+    "ibnu-khaldun": "Ibnu Khaldun Laundry",
+    "ibnu-sina": "Ibnu Sina Hostel Laundry"
+};
+
+let currentLocation = "ibnu-hibban";
+
+function statusClass(status) {
+    if (status === "Available") return "available";
+    if (status === "Reserved") return "reserved";
+    if (status === "In Use") return "inuse";
+    return "maintenance";
+}
+
+function renderMachines() {
+
+    const machines = locations[currentLocation];
+
+    const available = machines.filter(m => m[1] === "Available").length;
+    const reserved = machines.filter(m => m[1] === "Reserved").length;
+    const inUse = machines.filter(m => m[1] === "In Use").length;
+
+    document.getElementById("totalCount").textContent = machines.length;
+    document.getElementById("availableCount").textContent = available;
+    document.getElementById("reservedCount").textContent = reserved;
+    document.getElementById("inUseCount").textContent = inUse;
+
+    const overview = document.getElementById("overviewMachines");
+    const management = document.getElementById("managementMachines");
+
+    overview.innerHTML = "";
+    management.innerHTML = "";
+
+    machines.forEach((machine, index) => {
+
+        const name = machine[0];
+        const status = machine[1];
+
+        const spinning = status === "In Use" ? "spinning" : "";
+        const iconClass = status === "Reserved" ? "reserved-icon" :
+            status === "Maintenance" ? "maintenance-icon" : "";
+
+        overview.innerHTML += `
+            <div class="machine">
+                <div class="machine-icon ${spinning} ${iconClass}"></div>
+                <h3>${name}</h3>
+                <span class="status ${statusClass(status)}">${status}</span>
+                <small>${status === "In Use" ? "● Washing cycle active" :
+                status === "Reserved" ? "● Awaiting customer" :
+                status === "Available" ? "● Ready for booking" :
+                "● Service required"}</small>
+            </div>
+        `;
+
+        management.innerHTML += `
+            <div class="machine">
+                <div class="machine-icon ${spinning} ${iconClass}"></div>
+                <h3>${name}</h3>
+                <span class="status ${statusClass(status)}">${status}</span>
+                <select onchange="changeStatus(${index},this.value)">
+                    <option value="Available" ${status === "Available" ? "selected" : ""}>Available</option>
+                    <option value="Reserved" ${status === "Reserved" ? "selected" : ""}>Reserved</option>
+                    <option value="In Use" ${status === "In Use" ? "selected" : ""}>In Use</option>
+                    <option value="Maintenance" ${status === "Maintenance" ? "selected" : ""}>Maintenance</option>
+                </select>
+                <small>Change machine status</small>
+            </div>
+        `;
+
+    });
+
+}
+
+function changeStatus(index, newStatus) {
+
+    locations[currentLocation][index][1] = newStatus;
+
+    renderMachines();
+
+    alert("Machine status updated to: " + newStatus);
+}
+
+document.getElementById("locationSelect").addEventListener("change", function() {
+
+    currentLocation = this.value;
+
+    document.getElementById("machineLocation").value = currentLocation;
+
+    renderMachines();
+
+});
+
+document.getElementById("machineLocation").addEventListener("change", function() {
+
+    currentLocation = this.value;
+
+    document.getElementById("locationSelect").value = currentLocation;
+
+    renderMachines();
+
+});
+
 document.querySelectorAll(".menu a").forEach(link => {
-    link.addEventListener("click", function() {
+
+    link.addEventListener("click", function(event) {
+
+        event.preventDefault();
+
+        const page = this.dataset.page;
+
+        document.querySelectorAll(".page").forEach(section => {
+            section.classList.remove("active");
+        });
+
+        document.getElementById(page).classList.add("active");
+
         document.querySelectorAll(".menu a").forEach(item => {
             item.classList.remove("active");
         });
 
         this.classList.add("active");
+
     });
+
 });
+
+function requestAd(space) {
+
+    alert(
+        "Thank you for your interest in QLess advertising! " +
+        "You selected: " + space +
+        ". Please contact the QLess team for rental information."
+    );
+
+}
+
+renderMachines();
+
 </script>
 
 </body>
