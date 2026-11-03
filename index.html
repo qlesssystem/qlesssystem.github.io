@@ -558,6 +558,9 @@ button:hover {
             <option value="ibnu-khaldun">Ibnu Khaldun Laundry</option>
             <option value="ibnu-sina">Ibnu Sina Hostel Laundry</option>
         </select>
+        <button type="button" class="gold-button" id="addLocationButton" style="margin-top:14px;">
+            + Add Location
+        </button>
     </div>
 
     <h3 class="section-title">Laundry Overview</h3>
@@ -767,181 +770,162 @@ button:hover {
 
 </main>
 
+
+<div id="addLocationModal" style="display:none;position:fixed;inset:0;background:rgba(9,27,58,.68);z-index:1000;align-items:center;justify-content:center;padding:18px;">
+  <div style="background:#fff;width:100%;max-width:420px;padding:25px;border-radius:14px;box-shadow:0 12px 35px rgba(0,0,0,.25);">
+    <h3 style="color:#102A63;margin-bottom:10px;">Add Laundry Location</h3>
+    <p style="font-size:12px;color:#71809A;line-height:1.5;margin-bottom:18px;">Enter the name of the hostel laundry location where QLess will be installed.</p>
+    <label for="newLocationName" style="display:block;font-size:13px;font-weight:bold;margin-bottom:8px;">Location Name</label>
+    <input id="newLocationName" type="text" maxlength="70" placeholder="e.g. Kolej Kediaman..." style="width:100%;max-width:none;padding:12px;border:1px solid #D5DDEA;border-radius:8px;margin-bottom:18px;">
+    <div style="display:flex;justify-content:flex-end;gap:9px;">
+      <button type="button" id="cancelAddLocation" style="background:#E8EDF5;color:#102A63;">Cancel</button>
+      <button type="button" id="saveAddLocation" class="gold-button">Add Location</button>
+    </div>
+  </div>
+</div>
+
 <script>
-
-const locations = {
-    "ibnu-hibban": [
-        ["Washer 01","Available"],
-        ["Washer 02","Reserved"],
-        ["Washer 03","In Use"],
-        ["Washer 04","Available"],
-        ["Washer 05","In Use"],
-        ["Washer 06","Reserved"],
-        ["Dryer 01","Available"],
-        ["Dryer 02","Maintenance"]
-    ],
-    "at-tarmizi": [
-        ["Washer 01","Available"],
-        ["Washer 02","In Use"],
-        ["Washer 03","Available"],
-        ["Washer 04","Reserved"],
-        ["Dryer 01","Available"],
-        ["Dryer 02","Maintenance"]
-    ],
-    "ibnu-khaldun": [
-        ["Washer 01","Available"],
-        ["Washer 02","Available"],
-        ["Washer 03","Reserved"],
-        ["Dryer 01","In Use"]
-    ],
-    "ibnu-sina": [
-        ["Washer 01","In Use"],
-        ["Washer 02","Available"],
-        ["Dryer 01","Available"],
-        ["Dryer 02","Reserved"]
-    ]
+const defaultLocations = {
+  "ibnu-hibban": [["Washer 01","Available"],["Washer 02","Reserved"],["Washer 03","In Use"],["Washer 04","Available"],["Washer 05","In Use"],["Washer 06","Reserved"],["Dryer 01","Available"],["Dryer 02","Maintenance"]],
+  "at-tarmizi": [["Washer 01","Available"],["Washer 02","In Use"],["Washer 03","Available"],["Washer 04","Reserved"],["Dryer 01","Available"],["Dryer 02","Maintenance"]],
+  "ibnu-khaldun": [["Washer 01","Available"],["Washer 02","Available"],["Washer 03","Reserved"],["Dryer 01","In Use"]],
+  "ibnu-sina": [["Washer 01","In Use"],["Washer 02","Available"],["Dryer 01","Available"],["Dryer 02","Reserved"]]
 };
-
-const locationNames = {
-    "ibnu-hibban": "Ibnu Hibban Laundry",
-    "at-tarmizi": "At-Tarmizi Hostel Laundry",
-    "ibnu-khaldun": "Ibnu Khaldun Laundry",
-    "ibnu-sina": "Ibnu Sina Hostel Laundry"
+const defaultLocationNames = {
+  "ibnu-hibban":"Ibnu Hibban Laundry",
+  "at-tarmizi":"At-Tarmizi Hostel Laundry",
+  "ibnu-khaldun":"Ibnu Khaldun Laundry",
+  "ibnu-sina":"Ibnu Sina Hostel Laundry"
 };
-
+const STORAGE_KEY = "qless_admin_v2_1_locations";
+let locations = {};
+let locationNames = {};
 let currentLocation = "ibnu-hibban";
 
+function loadSavedData() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    if (saved && saved.locations && saved.locationNames) {
+      locations = saved.locations;
+      locationNames = saved.locationNames;
+      Object.keys(defaultLocationNames).forEach(id => {
+        if (!locationNames[id]) locationNames[id] = defaultLocationNames[id];
+        if (!locations[id]) locations[id] = JSON.parse(JSON.stringify(defaultLocations[id]));
+      });
+    } else {
+      locations = JSON.parse(JSON.stringify(defaultLocations));
+      locationNames = {...defaultLocationNames};
+    }
+  } catch (error) {
+    locations = JSON.parse(JSON.stringify(defaultLocations));
+    locationNames = {...defaultLocationNames};
+  }
+  if (!locations[currentLocation]) currentLocation = Object.keys(locations)[0] || "";
+}
+function saveData() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify({locations, locationNames}));
+}
+function escapeHTML(value) {
+  return String(value).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+function populateLocationSelectors() {
+  const options = Object.keys(locationNames).map(id =>
+    `<option value="${escapeHTML(id)}">${escapeHTML(locationNames[id])}</option>`
+  ).join("");
+  document.getElementById("locationSelect").innerHTML = options;
+  document.getElementById("machineLocation").innerHTML = options;
+  document.getElementById("locationSelect").value = currentLocation;
+  document.getElementById("machineLocation").value = currentLocation;
+}
 function statusClass(status) {
-    if (status === "Available") return "available";
-    if (status === "Reserved") return "reserved";
-    if (status === "In Use") return "inuse";
-    return "maintenance";
+  if (status === "Available") return "available";
+  if (status === "Reserved") return "reserved";
+  if (status === "In Use") return "inuse";
+  return "maintenance";
 }
-
 function renderMachines() {
-
-    const machines = locations[currentLocation];
-
-    const available = machines.filter(m => m[1] === "Available").length;
-    const reserved = machines.filter(m => m[1] === "Reserved").length;
-    const inUse = machines.filter(m => m[1] === "In Use").length;
-
-    document.getElementById("totalCount").textContent = machines.length;
-    document.getElementById("availableCount").textContent = available;
-    document.getElementById("reservedCount").textContent = reserved;
-    document.getElementById("inUseCount").textContent = inUse;
-
-    const overview = document.getElementById("overviewMachines");
-    const management = document.getElementById("managementMachines");
-
-    overview.innerHTML = "";
-    management.innerHTML = "";
-
-    machines.forEach((machine, index) => {
-
-        const name = machine[0];
-        const status = machine[1];
-
-        const spinning = status === "In Use" ? "spinning" : "";
-        const iconClass = status === "Reserved" ? "reserved-icon" :
-            status === "Maintenance" ? "maintenance-icon" : "";
-
-        overview.innerHTML += `
-            <div class="machine">
-                <div class="machine-icon ${spinning} ${iconClass}"></div>
-                <h3>${name}</h3>
-                <span class="status ${statusClass(status)}">${status}</span>
-                <small>${status === "In Use" ? "● Washing cycle active" :
-                status === "Reserved" ? "● Awaiting customer" :
-                status === "Available" ? "● Ready for booking" :
-                "● Service required"}</small>
-            </div>
-        `;
-
-        management.innerHTML += `
-            <div class="machine">
-                <div class="machine-icon ${spinning} ${iconClass}"></div>
-                <h3>${name}</h3>
-                <span class="status ${statusClass(status)}">${status}</span>
-                <select onchange="changeStatus(${index},this.value)">
-                    <option value="Available" ${status === "Available" ? "selected" : ""}>Available</option>
-                    <option value="Reserved" ${status === "Reserved" ? "selected" : ""}>Reserved</option>
-                    <option value="In Use" ${status === "In Use" ? "selected" : ""}>In Use</option>
-                    <option value="Maintenance" ${status === "Maintenance" ? "selected" : ""}>Maintenance</option>
-                </select>
-                <small>Change machine status</small>
-            </div>
-        `;
-
-    });
-
+  const machines = locations[currentLocation] || [];
+  const available = machines.filter(m => m[1] === "Available").length;
+  const reserved = machines.filter(m => m[1] === "Reserved").length;
+  const inUse = machines.filter(m => m[1] === "In Use").length;
+  document.getElementById("totalCount").textContent = machines.length;
+  document.getElementById("availableCount").textContent = available;
+  document.getElementById("reservedCount").textContent = reserved;
+  document.getElementById("inUseCount").textContent = inUse;
+  const overview = document.getElementById("overviewMachines");
+  const management = document.getElementById("managementMachines");
+  overview.innerHTML = "";
+  management.innerHTML = "";
+  if (!machines.length) {
+    const message = '<div class="notice">No machines have been registered at this location yet. Machine registration will be added in the next development stage.</div>';
+    overview.innerHTML = message;
+    management.innerHTML = message;
+    return;
+  }
+  machines.forEach((machine,index) => {
+    const name = machine[0], status = machine[1];
+    const spinning = status === "In Use" ? "spinning" : "";
+    const iconClass = status === "Reserved" ? "reserved-icon" : status === "Maintenance" ? "maintenance-icon" : "";
+    overview.innerHTML += `<div class="machine"><div class="machine-icon ${spinning} ${iconClass}"></div><h3>${escapeHTML(name)}</h3><span class="status ${statusClass(status)}">${escapeHTML(status)}</span><small>${status === "In Use" ? "● Washing cycle active" : status === "Reserved" ? "● Awaiting customer" : status === "Available" ? "● Ready for booking" : "● Service required"}</small></div>`;
+    management.innerHTML += `<div class="machine"><div class="machine-icon ${spinning} ${iconClass}"></div><h3>${escapeHTML(name)}</h3><span class="status ${statusClass(status)}">${escapeHTML(status)}</span><select onchange="changeStatus(${index},this.value)"><option value="Available" ${status==="Available"?"selected":""}>Available</option><option value="Reserved" ${status==="Reserved"?"selected":""}>Reserved</option><option value="In Use" ${status==="In Use"?"selected":""}>In Use</option><option value="Maintenance" ${status==="Maintenance"?"selected":""}>Maintenance</option></select><small>Change machine status</small></div>`;
+  });
 }
-
-function changeStatus(index, newStatus) {
-
-    locations[currentLocation][index][1] = newStatus;
-
-    renderMachines();
-
-    alert("Machine status updated to: " + newStatus);
+function changeStatus(index,newStatus) {
+  if (!locations[currentLocation] || !locations[currentLocation][index]) return;
+  locations[currentLocation][index][1] = newStatus;
+  saveData();
+  renderMachines();
 }
-
-document.getElementById("locationSelect").addEventListener("change", function() {
-
-    currentLocation = this.value;
-
-    document.getElementById("machineLocation").value = currentLocation;
-
-    renderMachines();
-
+function syncLocationSelection(id) {
+  if (!locations[id]) return;
+  currentLocation = id;
+  document.getElementById("locationSelect").value = id;
+  document.getElementById("machineLocation").value = id;
+  renderMachines();
+}
+document.getElementById("locationSelect").addEventListener("change",function(){syncLocationSelection(this.value);});
+document.getElementById("machineLocation").addEventListener("change",function(){syncLocationSelection(this.value);});
+document.getElementById("addLocationButton").addEventListener("click",function(){
+  document.getElementById("newLocationName").value = "";
+  document.getElementById("addLocationModal").style.display = "flex";
+  document.getElementById("newLocationName").focus();
 });
-
-document.getElementById("machineLocation").addEventListener("change", function() {
-
-    currentLocation = this.value;
-
-    document.getElementById("locationSelect").value = currentLocation;
-
-    renderMachines();
-
+document.getElementById("cancelAddLocation").addEventListener("click",function(){
+  document.getElementById("addLocationModal").style.display = "none";
 });
-
+document.getElementById("saveAddLocation").addEventListener("click",function(){
+  const input = document.getElementById("newLocationName");
+  const name = input.value.trim();
+  if (!name) { alert("Please enter a location name."); input.focus(); return; }
+  const duplicate = Object.values(locationNames).some(n => n.toLowerCase() === name.toLowerCase());
+  if (duplicate) { alert("This location already exists. Please enter a different name."); input.focus(); return; }
+  const id = "location-" + Date.now();
+  locationNames[id] = name;
+  locations[id] = [];
+  saveData();
+  populateLocationSelectors();
+  syncLocationSelection(id);
+  document.getElementById("addLocationModal").style.display = "none";
+  alert(name + " has been added successfully. This location currently has no registered machines.");
+});
+document.getElementById("addLocationModal").addEventListener("click",function(e){if(e.target===this)this.style.display="none";});
+document.getElementById("newLocationName").addEventListener("keydown",function(e){if(e.key==="Enter")document.getElementById("saveAddLocation").click();});
 document.querySelectorAll(".menu a").forEach(link => {
-
-    link.addEventListener("click", function(event) {
-
-        event.preventDefault();
-
-        const page = this.dataset.page;
-
-        document.querySelectorAll(".page").forEach(section => {
-            section.classList.remove("active");
-        });
-
-        document.getElementById(page).classList.add("active");
-
-        document.querySelectorAll(".menu a").forEach(item => {
-            item.classList.remove("active");
-        });
-
-        this.classList.add("active");
-
-    });
-
+  link.addEventListener("click",function(event){
+    event.preventDefault();
+    const page = this.dataset.page;
+    document.querySelectorAll(".page").forEach(section=>section.classList.remove("active"));
+    document.getElementById(page).classList.add("active");
+    document.querySelectorAll(".menu a").forEach(item=>item.classList.remove("active"));
+    this.classList.add("active");
+  });
 });
-
 function requestAd(space) {
-
-    alert(
-        "Thank you for your interest in QLess advertising! " +
-        "You selected: " + space +
-        ". Please contact the QLess team for rental information."
-    );
-
+  alert("Thank you for your interest in QLess advertising! You selected: " + space + ". Please contact the QLess team for rental information.");
 }
-
+loadSavedData();
+populateLocationSelectors();
 renderMachines();
-
 </script>
 
 </body>
