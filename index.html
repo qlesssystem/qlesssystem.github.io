@@ -616,9 +616,12 @@ button:hover {
         </select>
     </div>
 
-    <p style="font-size:12px;color:#71809A;margin-bottom:15px;">
-        Admin can change machine status using the dropdown menu.
-    </p>
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:15px;">
+        <p style="font-size:12px;color:#71809A;">
+            Register every washer and dryer at the selected laundry location, then update its operational status.
+        </p>
+        <button type="button" class="gold-button" id="addMachineButton">+ Add Machine</button>
+    </div>
 
     <div class="machine-grid" id="managementMachines"></div>
 
@@ -784,6 +787,32 @@ button:hover {
   </div>
 </div>
 
+
+<div id="addMachineModal" style="display:none;position:fixed;inset:0;background:rgba(9,27,58,.68);z-index:1001;align-items:center;justify-content:center;padding:18px;">
+  <div style="background:#fff;width:100%;max-width:430px;padding:25px;border-radius:14px;box-shadow:0 12px 35px rgba(0,0,0,.25);">
+    <h3 style="color:#102A63;margin-bottom:10px;">Register New Machine</h3>
+    <p style="font-size:12px;color:#71809A;line-height:1.5;margin-bottom:18px;">Add a washer or dryer to the currently selected laundry location.</p>
+    <label for="newMachineName" style="display:block;font-size:13px;font-weight:bold;margin-bottom:7px;">Machine ID / Name</label>
+    <input id="newMachineName" type="text" maxlength="35" placeholder="e.g. Washer 07" style="width:100%;max-width:none;padding:12px;border:1px solid #D5DDEA;border-radius:8px;margin-bottom:14px;">
+    <label for="newMachineType" style="display:block;font-size:13px;font-weight:bold;margin-bottom:7px;">Machine Type</label>
+    <select id="newMachineType" style="width:100%;max-width:none;margin-bottom:14px;">
+      <option value="Washer">Washing Machine</option>
+      <option value="Dryer">Dryer</option>
+    </select>
+    <label for="newMachineStatus" style="display:block;font-size:13px;font-weight:bold;margin-bottom:7px;">Initial Status</label>
+    <select id="newMachineStatus" style="width:100%;max-width:none;margin-bottom:18px;">
+      <option value="Available">Available</option>
+      <option value="Reserved">Reserved</option>
+      <option value="In Use">In Use</option>
+      <option value="Maintenance">Under Maintenance</option>
+    </select>
+    <div style="display:flex;justify-content:flex-end;gap:9px;">
+      <button type="button" id="cancelAddMachine" style="background:#E8EDF5;color:#102A63;">Cancel</button>
+      <button type="button" id="saveAddMachine" class="gold-button">Save Machine</button>
+    </div>
+  </div>
+</div>
+
 <script>
 const defaultLocations = {
   "ibnu-hibban": [["Washer 01","Available"],["Washer 02","Reserved"],["Washer 03","In Use"],["Washer 04","Available"],["Washer 05","In Use"],["Washer 06","Reserved"],["Dryer 01","Available"],["Dryer 02","Maintenance"]],
@@ -843,6 +872,9 @@ function statusClass(status) {
   if (status === "In Use") return "inuse";
   return "maintenance";
 }
+function statusLabel(status) {
+  return status === "Maintenance" ? "Under Maintenance" : status;
+}
 function renderMachines() {
   const machines = locations[currentLocation] || [];
   const available = machines.filter(m => m[1] === "Available").length;
@@ -852,27 +884,59 @@ function renderMachines() {
   document.getElementById("availableCount").textContent = available;
   document.getElementById("reservedCount").textContent = reserved;
   document.getElementById("inUseCount").textContent = inUse;
+
   const overview = document.getElementById("overviewMachines");
   const management = document.getElementById("managementMachines");
   overview.innerHTML = "";
   management.innerHTML = "";
+
   if (!machines.length) {
-    const message = '<div class="notice">No machines have been registered at this location yet. Machine registration will be added in the next development stage.</div>';
+    const message = '<div class="notice">No machines have been registered at this location yet. Select “Add Machine” to register the first washer or dryer.</div>';
     overview.innerHTML = message;
     management.innerHTML = message;
     return;
   }
+
   machines.forEach((machine,index) => {
     const name = machine[0], status = machine[1];
     const spinning = status === "In Use" ? "spinning" : "";
     const iconClass = status === "Reserved" ? "reserved-icon" : status === "Maintenance" ? "maintenance-icon" : "";
-    overview.innerHTML += `<div class="machine"><div class="machine-icon ${spinning} ${iconClass}"></div><h3>${escapeHTML(name)}</h3><span class="status ${statusClass(status)}">${escapeHTML(status)}</span><small>${status === "In Use" ? "● Washing cycle active" : status === "Reserved" ? "● Awaiting customer" : status === "Available" ? "● Ready for booking" : "● Service required"}</small></div>`;
-    management.innerHTML += `<div class="machine"><div class="machine-icon ${spinning} ${iconClass}"></div><h3>${escapeHTML(name)}</h3><span class="status ${statusClass(status)}">${escapeHTML(status)}</span><select onchange="changeStatus(${index},this.value)"><option value="Available" ${status==="Available"?"selected":""}>Available</option><option value="Reserved" ${status==="Reserved"?"selected":""}>Reserved</option><option value="In Use" ${status==="In Use"?"selected":""}>In Use</option><option value="Maintenance" ${status==="Maintenance"?"selected":""}>Maintenance</option></select><small>Change machine status</small></div>`;
+    const typeLabel = /^dryer/i.test(name) ? "Dryer" : "Washing Machine";
+    const card = `<div class="machine">
+      <div class="machine-icon ${spinning} ${iconClass}"></div>
+      <h3>${escapeHTML(name)}</h3>
+      <span class="status ${statusClass(status)}">${escapeHTML(statusLabel(status))}</span>
+      <small>${status === "In Use" ? "● Operating" : status === "Reserved" ? "● Reserved for customer" : status === "Available" ? "● Ready for use" : "● Service required"}</small>
+    </div>`;
+    overview.innerHTML += card;
+
+    management.innerHTML += `<div class="machine">
+      <div class="machine-icon ${spinning} ${iconClass}"></div>
+      <h3>${escapeHTML(name)}</h3>
+      <p style="font-size:11px;color:#71809A;margin-bottom:8px;">${typeLabel}</p>
+      <span class="status ${statusClass(status)}">${escapeHTML(statusLabel(status))}</span>
+      <label style="display:block;font-size:11px;font-weight:bold;margin:12px 0 6px;">Update status</label>
+      <select aria-label="Update status for ${escapeHTML(name)}" onchange="changeStatus(${index},this.value)">
+        <option value="Available" ${status==="Available"?"selected":""}>Available</option>
+        <option value="Reserved" ${status==="Reserved"?"selected":""}>Reserved</option>
+        <option value="In Use" ${status==="In Use"?"selected":""}>In Use</option>
+        <option value="Maintenance" ${status==="Maintenance"?"selected":""}>Under Maintenance</option>
+      </select>
+      <button type="button" style="margin-top:9px;background:#FCE8E8;color:#B83232;" onclick="removeMachine(${index})">Remove Machine</button>
+    </div>`;
   });
 }
 function changeStatus(index,newStatus) {
   if (!locations[currentLocation] || !locations[currentLocation][index]) return;
   locations[currentLocation][index][1] = newStatus;
+  saveData();
+  renderMachines();
+}
+function removeMachine(index) {
+  const machine = locations[currentLocation] && locations[currentLocation][index];
+  if (!machine) return;
+  if (!confirm("Remove " + machine[0] + " from this location?")) return;
+  locations[currentLocation].splice(index,1);
   saveData();
   renderMachines();
 }
@@ -885,6 +949,7 @@ function syncLocationSelection(id) {
 }
 document.getElementById("locationSelect").addEventListener("change",function(){syncLocationSelection(this.value);});
 document.getElementById("machineLocation").addEventListener("change",function(){syncLocationSelection(this.value);});
+
 document.getElementById("addLocationButton").addEventListener("click",function(){
   document.getElementById("newLocationName").value = "";
   document.getElementById("addLocationModal").style.display = "flex";
@@ -906,10 +971,44 @@ document.getElementById("saveAddLocation").addEventListener("click",function(){
   populateLocationSelectors();
   syncLocationSelection(id);
   document.getElementById("addLocationModal").style.display = "none";
-  alert(name + " has been added successfully. This location currently has no registered machines.");
+  alert(name + " has been added successfully. Register its washers and dryers using Add Machine.");
 });
 document.getElementById("addLocationModal").addEventListener("click",function(e){if(e.target===this)this.style.display="none";});
 document.getElementById("newLocationName").addEventListener("keydown",function(e){if(e.key==="Enter")document.getElementById("saveAddLocation").click();});
+
+document.getElementById("addMachineButton").addEventListener("click",function(){
+  if (!currentLocation) { alert("Select or add a laundry location first."); return; }
+  document.getElementById("newMachineName").value = "";
+  document.getElementById("newMachineType").value = "Washer";
+  document.getElementById("newMachineStatus").value = "Available";
+  document.getElementById("addMachineModal").style.display = "flex";
+  document.getElementById("newMachineName").focus();
+});
+document.getElementById("cancelAddMachine").addEventListener("click",function(){
+  document.getElementById("addMachineModal").style.display = "none";
+});
+document.getElementById("saveAddMachine").addEventListener("click",function(){
+  const nameInput = document.getElementById("newMachineName");
+  const name = nameInput.value.trim();
+  const type = document.getElementById("newMachineType").value;
+  const status = document.getElementById("newMachineStatus").value;
+  if (!name) { alert("Please enter a machine ID or name."); nameInput.focus(); return; }
+  const exists = (locations[currentLocation] || []).some(m => m[0].toLowerCase() === name.toLowerCase());
+  if (exists) { alert("This machine ID already exists at this location."); nameInput.focus(); return; }
+  const prefix = type === "Dryer" ? "dryer" : "washer";
+  if (!new RegExp("^" + prefix, "i").test(name)) {
+    alert("For clarity, use a machine name beginning with " + (type === "Dryer" ? "Dryer" : "Washer") + ", for example " + (type === "Dryer" ? "Dryer 03" : "Washer 07") + ".");
+    nameInput.focus();
+    return;
+  }
+  locations[currentLocation].push([name,status]);
+  saveData();
+  document.getElementById("addMachineModal").style.display = "none";
+  renderMachines();
+});
+document.getElementById("addMachineModal").addEventListener("click",function(e){if(e.target===this)this.style.display="none";});
+document.getElementById("newMachineName").addEventListener("keydown",function(e){if(e.key==="Enter")document.getElementById("saveAddMachine").click();});
+
 document.querySelectorAll(".menu a").forEach(link => {
   link.addEventListener("click",function(event){
     event.preventDefault();
