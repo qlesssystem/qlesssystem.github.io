@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,500 +9,541 @@
 
 <style>
 :root {
-    --blue: #102A63;
-    --navy: #091B3A;
-    --royal: #1D4E9E;
-    --gold: #D4AF37;
-    --light: #F3F6FC;
-    --white: #FFFFFF;
-    --text: #172B4D;
-    --muted: #71809A;
-    --green: #16865A;
-    --red: #C74444;
+    --blue:#102A63;
+    --navy:#091B3A;
+    --royal:#1D4E9E;
+    --gold:#D4AF37;
+    --light:#F3F6FC;
+    --white:#FFFFFF;
+    --text:#172B4D;
+    --muted:#71809A;
+    --green:#16865A;
+    --red:#C74444;
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
 }
 
 body {
-    background: var(--light);
-    color: var(--text);
+    background:var(--light);
+    color:var(--text);
 }
 
 .sidebar {
-    width: 245px;
-    min-height: 100vh;
-    background: var(--navy);
-    color: white;
-    position: fixed;
-    top: 0;
-    left: 0;
-    padding: 27px 17px;
-    z-index: 10;
+    width:245px;
+    min-height:100vh;
+    background:var(--navy);
+    color:white;
+    position:fixed;
+    top:0;
+    left:0;
+    padding:25px 17px;
+    z-index:20;
 }
 
 .logo {
-    font-size: 29px;
-    font-weight: bold;
-    margin-bottom: 5px;
+    font-size:29px;
+    font-weight:bold;
 }
 
 .logo span {
-    color: var(--gold);
+    color:var(--gold);
 }
 
 .subtitle {
-    font-size: 10px;
-    color: #B9C8E5;
-    margin-bottom: 40px;
-    letter-spacing: 1px;
+    font-size:10px;
+    color:#B9C8E5;
+    margin:5px 0 38px;
+    letter-spacing:1px;
 }
 
 .menu-title {
-    color: #9DAED0;
-    font-size: 10px;
-    margin: 25px 10px 12px;
-    letter-spacing: 1px;
+    color:#9DAED0;
+    font-size:10px;
+    margin:25px 10px 12px;
+    letter-spacing:1px;
 }
 
 .menu a {
-    display: block;
-    color: #DCE5F5;
-    text-decoration: none;
-    padding: 14px 12px;
-    margin: 5px 0;
-    border-radius: 9px;
-    font-size: 13px;
-    cursor: pointer;
-    transition: .25s;
+    display:block;
+    color:#DCE5F5;
+    text-decoration:none;
+    padding:14px 12px;
+    margin:5px 0;
+    border-radius:9px;
+    font-size:13px;
+    cursor:pointer;
+    transition:.25s;
 }
 
 .menu a:hover,
 .menu a.active {
-    background: var(--royal);
-    color: white;
-    border-left: 3px solid var(--gold);
+    background:var(--royal);
+    color:white;
+    border-left:3px solid var(--gold);
 }
 
 .main {
-    margin-left: 245px;
-    padding: 30px 35px;
+    margin-left:245px;
+    padding:28px 35px;
 }
 
 .topbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 28px;
-    gap: 15px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+    gap:15px;
 }
 
 .topbar h2 {
-    font-size: 25px;
-    color: var(--navy);
+    font-size:25px;
+    color:var(--navy);
 }
 
 .topbar p {
-    color: var(--muted);
-    font-size: 13px;
-    margin-top: 7px;
+    color:var(--muted);
+    font-size:13px;
+    margin-top:7px;
 }
 
 .admin {
-    background: white;
-    padding: 13px 18px;
-    border-radius: 10px;
-    box-shadow: 0 3px 12px #dce3ef;
-    font-size: 13px;
+    background:white;
+    padding:13px 18px;
+    border-radius:10px;
+    box-shadow:0 3px 12px #dce3ef;
+    font-size:13px;
 }
 
 .welcome {
-    background: linear-gradient(110deg, #102A63, #2861AE);
-    color: white;
-    padding: 32px;
-    border-radius: 17px;
-    margin-bottom: 28px;
-    animation: fadeIn .8s ease;
-    border-bottom: 4px solid var(--gold);
+    background:linear-gradient(110deg,#102A63,#2861AE);
+    color:white;
+    padding:32px;
+    border-radius:17px;
+    margin-bottom:25px;
+    border-bottom:4px solid var(--gold);
+    animation:fadeIn .6s ease;
 }
 
 .welcome h1 {
-    font-size: 27px;
-    margin-bottom: 10px;
+    font-size:27px;
+    margin-bottom:10px;
 }
 
 .welcome p {
-    color: #DDE8FA;
-    font-size: 14px;
+    color:#DDE8FA;
+    font-size:14px;
+    line-height:1.6;
 }
 
 .gold-tag {
-    display: inline-block;
-    background: var(--gold);
-    color: var(--navy);
-    padding: 10px 17px;
-    border-radius: 20px;
-    font-size: 11px;
-    font-weight: bold;
-    margin-top: 20px;
+    display:inline-block;
+    background:var(--gold);
+    color:var(--navy);
+    padding:10px 17px;
+    border-radius:20px;
+    font-size:11px;
+    font-weight:bold;
+    margin-top:18px;
 }
 
 .section-title {
-    margin: 28px 0 17px;
-    color: var(--navy);
-    font-size: 18px;
+    margin:27px 0 16px;
+    color:var(--navy);
+    font-size:18px;
 }
 
 .location-panel {
-    background: white;
-    padding: 22px;
-    border-radius: 14px;
-    box-shadow: 0 3px 14px #e1e7f1;
-    margin-bottom: 25px;
+    background:white;
+    padding:22px;
+    border-radius:14px;
+    box-shadow:0 3px 14px #e1e7f1;
+    margin-bottom:22px;
 }
 
 .location-panel label {
-    display: block;
-    font-size: 13px;
-    font-weight: bold;
-    margin-bottom: 12px;
+    display:block;
+    font-size:13px;
+    font-weight:bold;
+    margin-bottom:12px;
 }
 
-select, input {
-    width: 100%;
-    max-width: 430px;
-    padding: 13px;
-    border: 1px solid #D5DDEA;
-    border-radius: 8px;
-    background: white;
-    color: var(--text);
-    font-size: 14px;
+select,input {
+    width:100%;
+    max-width:430px;
+    padding:12px;
+    border:1px solid #D5DDEA;
+    border-radius:8px;
+    background:white;
+    color:var(--text);
+    font-size:13px;
 }
 
-select:focus, input:focus {
-    outline: 2px solid var(--gold);
-    border-color: var(--royal);
+select:focus,input:focus {
+    outline:2px solid var(--gold);
 }
 
 .stats {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 17px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:16px;
 }
 
 .card {
-    background: white;
-    padding: 22px;
-    border-radius: 13px;
-    box-shadow: 0 3px 14px #E1E7F1;
-    transition: .25s;
-    animation: fadeIn .7s ease;
+    background:white;
+    padding:21px;
+    border-radius:13px;
+    box-shadow:0 3px 14px #E1E7F1;
+    transition:.25s;
+    animation:fadeIn .5s ease;
 }
 
 .card:hover {
-    transform: translateY(-4px);
-    border-bottom: 3px solid var(--gold);
+    transform:translateY(-4px);
+    border-bottom:3px solid var(--gold);
 }
 
 .card small {
-    color: var(--muted);
-    font-size: 12px;
+    color:var(--muted);
+    font-size:12px;
 }
 
 .card h2 {
-    color: var(--royal);
-    font-size: 30px;
-    margin: 13px 0 7px;
+    color:var(--royal);
+    font-size:29px;
+    margin:12px 0 7px;
 }
 
 .card p {
-    color: var(--muted);
-    font-size: 11px;
+    color:var(--muted);
+    font-size:11px;
 }
 
 .machine-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:17px;
 }
 
 .machine {
-    background: white;
-    padding: 20px;
-    border-radius: 13px;
-    box-shadow: 0 3px 13px #E1E7F1;
-    transition: .25s;
+    background:white;
+    padding:17px;
+    border-radius:14px;
+    box-shadow:0 3px 13px #E1E7F1;
+    transition:.25s;
+    min-width:0;
 }
 
 .machine:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px #CBD6E8;
+    transform:translateY(-5px);
+    box-shadow:0 8px 20px #CBD6E8;
+}
+
+.machine-visual {
+    height:145px;
+    background:#F4F7FC;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:15px;
+    position:relative;
+}
+
+.machine-svg {
+    width:105px;
+    height:130px;
+}
+
+.machine-body {
+    fill:white;
+    stroke:#A9B9D0;
+    stroke-width:3;
+}
+
+.machine-top {
+    fill:#E8EEF8;
+    stroke:#A9B9D0;
+    stroke-width:2;
+}
+
+.machine-drum {
+    fill:#DCE8F8;
+    stroke:var(--royal);
+    stroke-width:4;
+}
+
+.machine-status-ring {
+    fill:none;
+    stroke-width:4;
+}
+
+.ring-available {
+    stroke:var(--green);
+}
+
+.ring-reserved {
+    stroke:var(--gold);
+    animation:statusPulse 1.8s infinite;
+}
+
+.ring-inuse {
+    stroke:var(--royal);
+}
+
+.ring-maintenance {
+    stroke:var(--red);
+}
+
+.drum-inner.spinning {
+    transform-box:fill-box;
+    transform-origin:center;
+    animation:drumSpin 1.5s linear infinite;
 }
 
 .machine h3 {
-    font-size: 14px;
-    margin-bottom: 12px;
-}
-
-.machine-icon {
-    width: 54px;
-    height: 54px;
-    border: 5px solid #B8C7DC;
-    border-radius: 50%;
-    background: radial-gradient(circle, #D8E4F4 30%, #688BB7 65%, #102A63 100%);
-    margin-bottom: 15px;
-    position: relative;
-    box-shadow: inset 0 0 8px #102A63;
-}
-
-.machine-icon.spinning {
-    animation: spin 1.3s linear infinite;
-}
-
-.machine-icon.reserved-icon {
-    border-color: var(--gold);
-}
-
-.machine-icon.maintenance-icon {
-    border-color: var(--red);
-}
-
-.status {
-    display: inline-block;
-    padding: 7px 11px;
-    border-radius: 20px;
-    font-size: 10px;
-    font-weight: bold;
-    margin-bottom: 12px;
-}
-
-.available {
-    background: #D8F5E7;
-    color: #16865A;
-}
-
-.reserved {
-    background: #FFF0C9;
-    color: #A36C00;
-}
-
-.inuse {
-    background: #DDE9FF;
-    color: #2056A0;
-}
-
-.maintenance {
-    background: #FFE0E0;
-    color: #B83D3D;
-}
-
-.machine select {
-    font-size: 11px;
-    padding: 9px;
-    margin-top: 4px;
+    font-size:14px;
+    margin-bottom:10px;
 }
 
 .machine small {
-    display: block;
-    color: var(--muted);
-    font-size: 10px;
-    margin-top: 9px;
+    display:block;
+    color:var(--muted);
+    font-size:10px;
+    margin-top:9px;
+}
+
+.status {
+    display:inline-block;
+    padding:7px 11px;
+    border-radius:20px;
+    font-size:10px;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+.available {
+    background:#D8F5E7;
+    color:#16865A;
+}
+
+.reserved {
+    background:#FFF0C9;
+    color:#A36C00;
+}
+
+.inuse {
+    background:#DDE9FF;
+    color:#2056A0;
+}
+
+.maintenance {
+    background:#FFE0E0;
+    color:#B83D3D;
+}
+
+.machine select {
+    max-width:100%;
+    font-size:11px;
+    padding:9px;
+}
+
+.machine-time {
+    font-size:11px;
+    color:var(--royal);
+    margin-top:8px;
+    font-weight:bold;
 }
 
 .table-box {
-    background: white;
-    border-radius: 14px;
-    padding: 23px;
-    margin-top: 25px;
-    box-shadow: 0 3px 14px #E1E7F1;
-    overflow-x: auto;
+    background:white;
+    border-radius:14px;
+    padding:23px;
+    margin-top:20px;
+    box-shadow:0 3px 14px #E1E7F1;
+    overflow-x:auto;
 }
 
 table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 17px;
-    font-size: 12px;
-    min-width: 500px;
+    width:100%;
+    border-collapse:collapse;
+    margin-top:17px;
+    font-size:12px;
+    min-width:540px;
 }
 
-th, td {
-    padding: 14px 10px;
-    text-align: left;
-    border-bottom: 1px solid #E9EDF4;
+th,td {
+    padding:14px 10px;
+    text-align:left;
+    border-bottom:1px solid #E9EDF4;
 }
 
 th {
-    color: var(--muted);
-    font-size: 11px;
+    color:var(--muted);
+    font-size:11px;
 }
 
 .ad-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    margin-top: 18px;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:16px;
+    margin-top:18px;
 }
 
 .ad-card {
-    background: white;
-    border: 1px solid #E1E7F1;
-    border-radius: 13px;
-    padding: 20px;
-    transition: .25s;
+    background:white;
+    border:1px solid #E1E7F1;
+    border-radius:13px;
+    padding:20px;
+    transition:.25s;
 }
 
 .ad-card:hover {
-    border-color: var(--gold);
-    transform: translateY(-4px);
+    border-color:var(--gold);
+    transform:translateY(-4px);
 }
 
 .ad-card h3 {
-    font-size: 14px;
-    margin-bottom: 9px;
+    font-size:14px;
+    margin-bottom:9px;
 }
 
 .ad-card p {
-    color: var(--muted);
-    font-size: 11px;
-    line-height: 1.6;
+    color:var(--muted);
+    font-size:11px;
+    line-height:1.6;
 }
 
 .ad-price {
-    font-size: 20px;
-    font-weight: bold;
-    color: var(--royal);
-    margin: 15px 0;
+    font-size:19px;
+    font-weight:bold;
+    color:var(--royal);
+    margin:15px 0;
 }
 
 button {
-    border: none;
-    background: var(--royal);
-    color: white;
-    padding: 11px 15px;
-    border-radius: 7px;
-    cursor: pointer;
-    font-size: 12px;
-    transition: .2s;
+    border:none;
+    background:var(--royal);
+    color:white;
+    padding:11px 15px;
+    border-radius:7px;
+    cursor:pointer;
+    font-size:12px;
+    transition:.2s;
 }
 
 button:hover {
-    background: var(--navy);
-}
-
-.gold-button {
-    background: var(--gold);
-    color: var(--navy);
-    font-weight: bold;
-}
-
-.gold-button:hover {
-    background: #B99426;
+    background:var(--navy);
 }
 
 .notice {
-    background: #FFF8E5;
-    border-left: 4px solid var(--gold);
-    padding: 15px;
-    border-radius: 7px;
-    font-size: 12px;
-    line-height: 1.6;
-    margin-top: 20px;
+    background:#FFF8E5;
+    border-left:4px solid var(--gold);
+    padding:15px;
+    border-radius:7px;
+    font-size:12px;
+    line-height:1.7;
+    margin-top:20px;
 }
 
 .page {
-    display: none;
+    display:none;
 }
 
 .page.active {
-    display: block;
-    animation: fadeIn .4s ease;
+    display:block;
+    animation:fadeIn .4s ease;
 }
 
 .footer {
-    text-align: center;
-    color: var(--muted);
-    font-size: 11px;
-    margin-top: 40px;
-    padding: 20px;
+    text-align:center;
+    color:var(--muted);
+    font-size:11px;
+    margin-top:40px;
+    padding:20px;
 }
 
-@keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+@keyframes drumSpin {
+    from {transform:rotate(0deg);}
+    to {transform:rotate(360deg);}
+}
+
+@keyframes statusPulse {
+    0%,100% {opacity:1;}
+    50% {opacity:.4;}
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {opacity:0;transform:translateY(10px);}
+    to {opacity:1;transform:translateY(0);}
 }
 
-@media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        transition-duration: 0.01ms !important;
+@media(prefers-reduced-motion:reduce) {
+    *,*::before,*::after {
+        animation-duration:.01ms!important;
+        transition-duration:.01ms!important;
     }
 }
 
 @media(max-width:1100px) {
-    .stats, .machine-grid {
-        grid-template-columns: repeat(2, 1fr);
+    .stats,.machine-grid {
+        grid-template-columns:repeat(2,1fr);
     }
 }
 
 @media(max-width:700px) {
     .sidebar {
-        width: 100%;
-        min-height: auto;
-        position: relative;
-        padding: 17px;
+        width:100%;
+        min-height:auto;
+        position:relative;
+        padding:17px;
     }
 
-    .subtitle, .menu-title {
-        display: none;
+    .subtitle,.menu-title {
+        display:none;
     }
 
     .menu {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 4px;
+        display:flex;
+        flex-wrap:wrap;
+        gap:4px;
     }
 
     .menu a {
-        padding: 10px;
-        font-size: 11px;
+        padding:10px;
+        font-size:11px;
     }
 
     .main {
-        margin-left: 0;
-        padding: 18px;
+        margin-left:0;
+        padding:18px;
     }
 
     .topbar {
-        align-items: flex-start;
-        flex-direction: column;
+        align-items:flex-start;
+        flex-direction:column;
     }
 
-    .stats, .machine-grid, .ad-grid {
-        grid-template-columns: repeat(2, 1fr);
+    .stats,.machine-grid,.ad-grid {
+        grid-template-columns:repeat(2,1fr);
     }
 
     .welcome {
-        padding: 23px;
+        padding:23px;
     }
 
     .welcome h1 {
-        font-size: 21px;
+        font-size:21px;
     }
 }
 
 @media(max-width:420px) {
-    .stats, .machine-grid, .ad-grid {
-        grid-template-columns: 1fr;
+    .stats,.machine-grid,.ad-grid {
+        grid-template-columns:1fr;
     }
 }
 </style>
@@ -556,11 +598,8 @@ button:hover {
             <option value="ibnu-hibban">Ibnu Hibban Laundry</option>
             <option value="at-tarmizi">At-Tarmizi Hostel Laundry</option>
             <option value="ibnu-khaldun">Ibnu Khaldun Laundry</option>
-            <option value="ibnu-sina">Ibnu Sina Hostel Laundry</option>
+            <option value="ibnu-sina">Ibnu Sina Laundry</option>
         </select>
-        <button type="button" class="gold-button" id="addLocationButton" style="margin-top:14px;">
-            + Add Location
-        </button>
     </div>
 
     <h3 class="section-title">Laundry Overview</h3>
@@ -595,9 +634,9 @@ button:hover {
     <div class="machine-grid" id="overviewMachines"></div>
 
     <div class="notice">
-        <strong>Important:</strong> A reserved machine will only become operational
-        when the customer arrives and activates it through the QLess system.
-        A reservation alone does not start the washing machine.
+        <strong>Important:</strong> A reserved machine only becomes operational
+        when the customer arrives and activates it through QLess.
+        Reservation alone does not start the washing machine.
     </div>
 
 </section>
@@ -612,16 +651,13 @@ button:hover {
             <option value="ibnu-hibban">Ibnu Hibban Laundry</option>
             <option value="at-tarmizi">At-Tarmizi Hostel Laundry</option>
             <option value="ibnu-khaldun">Ibnu Khaldun Laundry</option>
-            <option value="ibnu-sina">Ibnu Sina Hostel Laundry</option>
+            <option value="ibnu-sina">Ibnu Sina Laundry</option>
         </select>
     </div>
 
-    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:15px;">
-        <p style="font-size:12px;color:#71809A;">
-            Register every washer and dryer at the selected laundry location, then update its operational status.
-        </p>
-        <button type="button" class="gold-button" id="addMachineButton">+ Add Machine</button>
-    </div>
+    <p style="font-size:12px;color:#71809A;margin-bottom:15px;">
+        Admin can change the machine status using the dropdown menu.
+    </p>
 
     <div class="machine-grid" id="managementMachines"></div>
 
@@ -633,6 +669,7 @@ button:hover {
 
     <div class="table-box">
         <h3>Recent Bookings</h3>
+
         <table>
             <thead>
                 <tr>
@@ -643,7 +680,8 @@ button:hover {
                     <th>Status</th>
                 </tr>
             </thead>
-            <tbody id="bookingRows">
+
+            <tbody>
                 <tr>
                     <td>QL001</td>
                     <td>Student 01</td>
@@ -684,21 +722,21 @@ button:hover {
     <div class="ad-grid">
 
         <div class="ad-card">
-            <h3>Banner Advertisement 01</h3>
-            <p>Large banner displayed on the customer homepage.</p>
+            <h3>Homepage Banner</h3>
+            <p>Large advertisement displayed on the customer homepage.</p>
             <div class="ad-price">Available</div>
             <button onclick="requestAd('Homepage Banner')">Request Space</button>
         </div>
 
         <div class="ad-card">
-            <h3>Banner Advertisement 02</h3>
+            <h3>Booking Page Banner</h3>
             <p>Promotional banner displayed on the booking page.</p>
             <div class="ad-price">Available</div>
             <button onclick="requestAd('Booking Page Banner')">Request Space</button>
         </div>
 
         <div class="ad-card">
-            <h3>Promotional Space 03</h3>
+            <h3>Promotional Space</h3>
             <p>Special promotions and product advertisements.</p>
             <div class="ad-price">Available</div>
             <button onclick="requestAd('Promotional Space')">Request Space</button>
@@ -718,6 +756,7 @@ button:hover {
     <h3 class="section-title">Revenue & Usage Analytics</h3>
 
     <div class="stats">
+
         <div class="card">
             <small>Total Bookings</small>
             <h2>125</h2>
@@ -741,6 +780,7 @@ button:hover {
             <h2>3</h2>
             <p>Available spaces</p>
         </div>
+
     </div>
 
     <div class="notice">
@@ -757,7 +797,7 @@ button:hover {
         <h3>QLess System Information</h3>
         <p style="margin-top:15px;">Platform: QLess Smart Laundry Management System</p>
         <p style="margin-top:10px;">Theme: Royal Blue & Gold</p>
-        <p style="margin-top:10px;">Version: 2.0 Prototype</p>
+        <p style="margin-top:10px;">Version: 3.0 Prototype</p>
         <p style="margin-top:10px;">Hosting: GitHub Pages</p>
     </div>
 
@@ -773,259 +813,306 @@ button:hover {
 
 </main>
 
-
-<div id="addLocationModal" style="display:none;position:fixed;inset:0;background:rgba(9,27,58,.68);z-index:1000;align-items:center;justify-content:center;padding:18px;">
-  <div style="background:#fff;width:100%;max-width:420px;padding:25px;border-radius:14px;box-shadow:0 12px 35px rgba(0,0,0,.25);">
-    <h3 style="color:#102A63;margin-bottom:10px;">Add Laundry Location</h3>
-    <p style="font-size:12px;color:#71809A;line-height:1.5;margin-bottom:18px;">Enter the name of the hostel laundry location where QLess will be installed.</p>
-    <label for="newLocationName" style="display:block;font-size:13px;font-weight:bold;margin-bottom:8px;">Location Name</label>
-    <input id="newLocationName" type="text" maxlength="70" placeholder="e.g. Kolej Kediaman..." style="width:100%;max-width:none;padding:12px;border:1px solid #D5DDEA;border-radius:8px;margin-bottom:18px;">
-    <div style="display:flex;justify-content:flex-end;gap:9px;">
-      <button type="button" id="cancelAddLocation" style="background:#E8EDF5;color:#102A63;">Cancel</button>
-      <button type="button" id="saveAddLocation" class="gold-button">Add Location</button>
-    </div>
-  </div>
-</div>
-
-
-<div id="addMachineModal" style="display:none;position:fixed;inset:0;background:rgba(9,27,58,.68);z-index:1001;align-items:center;justify-content:center;padding:18px;">
-  <div style="background:#fff;width:100%;max-width:430px;padding:25px;border-radius:14px;box-shadow:0 12px 35px rgba(0,0,0,.25);">
-    <h3 style="color:#102A63;margin-bottom:10px;">Register New Machine</h3>
-    <p style="font-size:12px;color:#71809A;line-height:1.5;margin-bottom:18px;">Add a washer or dryer to the currently selected laundry location.</p>
-    <label for="newMachineName" style="display:block;font-size:13px;font-weight:bold;margin-bottom:7px;">Machine ID / Name</label>
-    <input id="newMachineName" type="text" maxlength="35" placeholder="e.g. Washer 07" style="width:100%;max-width:none;padding:12px;border:1px solid #D5DDEA;border-radius:8px;margin-bottom:14px;">
-    <label for="newMachineType" style="display:block;font-size:13px;font-weight:bold;margin-bottom:7px;">Machine Type</label>
-    <select id="newMachineType" style="width:100%;max-width:none;margin-bottom:14px;">
-      <option value="Washer">Washing Machine</option>
-      <option value="Dryer">Dryer</option>
-    </select>
-    <label for="newMachineStatus" style="display:block;font-size:13px;font-weight:bold;margin-bottom:7px;">Initial Status</label>
-    <select id="newMachineStatus" style="width:100%;max-width:none;margin-bottom:18px;">
-      <option value="Available">Available</option>
-      <option value="Reserved">Reserved</option>
-      <option value="In Use">In Use</option>
-      <option value="Maintenance">Under Maintenance</option>
-    </select>
-    <div style="display:flex;justify-content:flex-end;gap:9px;">
-      <button type="button" id="cancelAddMachine" style="background:#E8EDF5;color:#102A63;">Cancel</button>
-      <button type="button" id="saveAddMachine" class="gold-button">Save Machine</button>
-    </div>
-  </div>
-</div>
-
 <script>
-const defaultLocations = {
-  "ibnu-hibban": [["Washer 01","Available"],["Washer 02","Reserved"],["Washer 03","In Use"],["Washer 04","Available"],["Washer 05","In Use"],["Washer 06","Reserved"],["Dryer 01","Available"],["Dryer 02","Maintenance"]],
-  "at-tarmizi": [["Washer 01","Available"],["Washer 02","In Use"],["Washer 03","Available"],["Washer 04","Reserved"],["Dryer 01","Available"],["Dryer 02","Maintenance"]],
-  "ibnu-khaldun": [["Washer 01","Available"],["Washer 02","Available"],["Washer 03","Reserved"],["Dryer 01","In Use"]],
-  "ibnu-sina": [["Washer 01","In Use"],["Washer 02","Available"],["Dryer 01","Available"],["Dryer 02","Reserved"]]
+
+const locations = {
+
+    "ibnu-hibban": [
+        ["Washer 01","Available",0],
+        ["Washer 02","Reserved",0],
+        ["Washer 03","In Use",25],
+        ["Washer 04","Available",0],
+        ["Washer 05","In Use",15],
+        ["Washer 06","Reserved",0],
+        ["Dryer 01","Available",0],
+        ["Dryer 02","Maintenance",0]
+    ],
+
+    "at-tarmizi": [
+        ["Washer 01","Available",0],
+        ["Washer 02","In Use",20],
+        ["Washer 03","Available",0],
+        ["Washer 04","Reserved",0],
+        ["Dryer 01","Available",0],
+        ["Dryer 02","Maintenance",0]
+    ],
+
+    "ibnu-khaldun": [
+        ["Washer 01","Available",0],
+        ["Washer 02","Available",0],
+        ["Washer 03","Reserved",0],
+        ["Dryer 01","In Use",30]
+    ],
+
+    "ibnu-sina": [
+        ["Washer 01","In Use",15],
+        ["Washer 02","Available",0],
+        ["Dryer 01","Available",0],
+        ["Dryer 02","Reserved",0]
+    ]
+
 };
-const defaultLocationNames = {
-  "ibnu-hibban":"Ibnu Hibban Laundry",
-  "at-tarmizi":"At-Tarmizi Hostel Laundry",
-  "ibnu-khaldun":"Ibnu Khaldun Laundry",
-  "ibnu-sina":"Ibnu Sina Hostel Laundry"
-};
-const STORAGE_KEY = "qless_admin_v2_1_locations";
-let locations = {};
-let locationNames = {};
+
 let currentLocation = "ibnu-hibban";
 
-function loadSavedData() {
-  try {
-    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
-    if (saved && saved.locations && saved.locationNames) {
-      locations = saved.locations;
-      locationNames = saved.locationNames;
-      Object.keys(defaultLocationNames).forEach(id => {
-        if (!locationNames[id]) locationNames[id] = defaultLocationNames[id];
-        if (!locations[id]) locations[id] = JSON.parse(JSON.stringify(defaultLocations[id]));
-      });
-    } else {
-      locations = JSON.parse(JSON.stringify(defaultLocations));
-      locationNames = {...defaultLocationNames};
-    }
-  } catch (error) {
-    locations = JSON.parse(JSON.stringify(defaultLocations));
-    locationNames = {...defaultLocationNames};
-  }
-  if (!locations[currentLocation]) currentLocation = Object.keys(locations)[0] || "";
-}
-function saveData() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify({locations, locationNames}));
-}
-function escapeHTML(value) {
-  return String(value).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-}
-function populateLocationSelectors() {
-  const options = Object.keys(locationNames).map(id =>
-    `<option value="${escapeHTML(id)}">${escapeHTML(locationNames[id])}</option>`
-  ).join("");
-  document.getElementById("locationSelect").innerHTML = options;
-  document.getElementById("machineLocation").innerHTML = options;
-  document.getElementById("locationSelect").value = currentLocation;
-  document.getElementById("machineLocation").value = currentLocation;
-}
+const locationNames = {
+    "ibnu-hibban":"Ibnu Hibban Laundry",
+    "at-tarmizi":"At-Tarmizi Hostel Laundry",
+    "ibnu-khaldun":"Ibnu Khaldun Laundry",
+    "ibnu-sina":"Ibnu Sina Laundry"
+};
+
 function statusClass(status) {
-  if (status === "Available") return "available";
-  if (status === "Reserved") return "reserved";
-  if (status === "In Use") return "inuse";
-  return "maintenance";
+
+    if(status==="Available") return "available";
+    if(status==="Reserved") return "reserved";
+    if(status==="In Use") return "inuse";
+
+    return "maintenance";
 }
-function statusLabel(status) {
-  return status === "Maintenance" ? "Under Maintenance" : status;
+
+function machineIllustration(name,status) {
+
+    let ring="ring-available";
+
+    if(status==="Reserved") ring="ring-reserved";
+    if(status==="In Use") ring="ring-inuse";
+    if(status==="Maintenance") ring="ring-maintenance";
+
+    const spinning=status==="In Use"?"spinning":"";
+
+    return `
+    <svg class="machine-svg"
+         viewBox="0 0 120 145"
+         xmlns="http://www.w3.org/2000/svg"
+         role="img"
+         aria-label="${name}">
+
+        <rect x="17" y="8" width="86" height="128"
+              rx="10" class="machine-body"/>
+
+        <rect x="24" y="16" width="72" height="22"
+              rx="4" class="machine-top"/>
+
+        <circle cx="34" cy="27" r="4" fill="#D4AF37"/>
+        <circle cx="47" cy="27" r="4" fill="#1D4E9E"/>
+
+        <rect x="59" y="23" width="28" height="7"
+              rx="3" fill="#A9B9D0"/>
+
+        <circle cx="60" cy="82" r="34"
+                class="machine-status-ring ${ring}"/>
+
+        <g class="drum-inner ${spinning}">
+
+            <circle cx="60" cy="82" r="27"
+                    class="machine-drum"/>
+
+            <path d="M60 57 Q78 72 60 82 Q42 92 60 107"
+                  fill="none"
+                  stroke="#1D4E9E"
+                  stroke-width="3"
+                  stroke-linecap="round"/>
+
+            <path d="M38 82 Q60 68 82 82"
+                  fill="none"
+                  stroke="#1D4E9E"
+                  stroke-width="3"
+                  stroke-linecap="round"/>
+
+            <circle cx="60" cy="82" r="5"
+                    fill="#A9C5E8"/>
+
+        </g>
+
+        <rect x="32" y="122" width="56" height="5"
+              rx="2" fill="#D4AF37"/>
+
+    </svg>`;
 }
+
 function renderMachines() {
-  const machines = locations[currentLocation] || [];
-  const available = machines.filter(m => m[1] === "Available").length;
-  const reserved = machines.filter(m => m[1] === "Reserved").length;
-  const inUse = machines.filter(m => m[1] === "In Use").length;
-  document.getElementById("totalCount").textContent = machines.length;
-  document.getElementById("availableCount").textContent = available;
-  document.getElementById("reservedCount").textContent = reserved;
-  document.getElementById("inUseCount").textContent = inUse;
 
-  const overview = document.getElementById("overviewMachines");
-  const management = document.getElementById("managementMachines");
-  overview.innerHTML = "";
-  management.innerHTML = "";
+    const machines=locations[currentLocation];
 
-  if (!machines.length) {
-    const message = '<div class="notice">No machines have been registered at this location yet. Select “Add Machine” to register the first washer or dryer.</div>';
-    overview.innerHTML = message;
-    management.innerHTML = message;
-    return;
-  }
+    const available=machines.filter(m=>m[1]==="Available").length;
+    const reserved=machines.filter(m=>m[1]==="Reserved").length;
+    const inUse=machines.filter(m=>m[1]==="In Use").length;
 
-  machines.forEach((machine,index) => {
-    const name = machine[0], status = machine[1];
-    const spinning = status === "In Use" ? "spinning" : "";
-    const iconClass = status === "Reserved" ? "reserved-icon" : status === "Maintenance" ? "maintenance-icon" : "";
-    const typeLabel = /^dryer/i.test(name) ? "Dryer" : "Washing Machine";
-    const card = `<div class="machine">
-      <div class="machine-icon ${spinning} ${iconClass}"></div>
-      <h3>${escapeHTML(name)}</h3>
-      <span class="status ${statusClass(status)}">${escapeHTML(statusLabel(status))}</span>
-      <small>${status === "In Use" ? "● Operating" : status === "Reserved" ? "● Reserved for customer" : status === "Available" ? "● Ready for use" : "● Service required"}</small>
-    </div>`;
-    overview.innerHTML += card;
+    document.getElementById("totalCount").textContent=machines.length;
+    document.getElementById("availableCount").textContent=available;
+    document.getElementById("reservedCount").textContent=reserved;
+    document.getElementById("inUseCount").textContent=inUse;
 
-    management.innerHTML += `<div class="machine">
-      <div class="machine-icon ${spinning} ${iconClass}"></div>
-      <h3>${escapeHTML(name)}</h3>
-      <p style="font-size:11px;color:#71809A;margin-bottom:8px;">${typeLabel}</p>
-      <span class="status ${statusClass(status)}">${escapeHTML(statusLabel(status))}</span>
-      <label style="display:block;font-size:11px;font-weight:bold;margin:12px 0 6px;">Update status</label>
-      <select aria-label="Update status for ${escapeHTML(name)}" onchange="changeStatus(${index},this.value)">
-        <option value="Available" ${status==="Available"?"selected":""}>Available</option>
-        <option value="Reserved" ${status==="Reserved"?"selected":""}>Reserved</option>
-        <option value="In Use" ${status==="In Use"?"selected":""}>In Use</option>
-        <option value="Maintenance" ${status==="Maintenance"?"selected":""}>Under Maintenance</option>
-      </select>
-      <button type="button" style="margin-top:9px;background:#FCE8E8;color:#B83232;" onclick="removeMachine(${index})">Remove Machine</button>
-    </div>`;
-  });
+    const overview=document.getElementById("overviewMachines");
+    const management=document.getElementById("managementMachines");
+
+    overview.innerHTML="";
+    management.innerHTML="";
+
+    machines.forEach((machine,index)=>{
+
+        const name=machine[0];
+        const status=machine[1];
+        const time=machine[2];
+
+        const illustration=machineIllustration(name,status);
+
+        const statusText =
+            status==="In Use" ? "Currently operating" :
+            status==="Reserved" ? "Waiting for customer" :
+            status==="Available" ? "Ready for booking" :
+            "Service required";
+
+        const timeText=status==="In Use"
+            ? `<div class="machine-time">◷ ${time} minutes remaining</div>`
+            : "";
+
+        overview.innerHTML+=`
+            <div class="machine">
+
+                <div class="machine-visual">
+                    ${illustration}
+                </div>
+
+                <h3>${name}</h3>
+
+                <span class="status ${statusClass(status)}">
+                    ${status}
+                </span>
+
+                <small>${statusText}</small>
+
+                ${timeText}
+
+            </div>
+        `;
+
+        management.innerHTML+=`
+            <div class="machine">
+
+                <div class="machine-visual">
+                    ${illustration}
+                </div>
+
+                <h3>${name}</h3>
+
+                <span class="status ${statusClass(status)}">
+                    ${status}
+                </span>
+
+                ${timeText}
+
+                <select onchange="changeStatus(${index},this.value)"
+                        aria-label="Change status for ${name}">
+
+                    <option value="Available"
+                    ${status==="Available"?"selected":""}>
+                    Available
+                    </option>
+
+                    <option value="Reserved"
+                    ${status==="Reserved"?"selected":""}>
+                    Reserved
+                    </option>
+
+                    <option value="In Use"
+                    ${status==="In Use"?"selected":""}>
+                    In Use
+                    </option>
+
+                    <option value="Maintenance"
+                    ${status==="Maintenance"?"selected":""}>
+                    Maintenance
+                    </option>
+
+                </select>
+
+                <small>Manage machine status</small>
+
+            </div>
+        `;
+
+    });
+
 }
+
 function changeStatus(index,newStatus) {
-  if (!locations[currentLocation] || !locations[currentLocation][index]) return;
-  locations[currentLocation][index][1] = newStatus;
-  saveData();
-  renderMachines();
-}
-function removeMachine(index) {
-  const machine = locations[currentLocation] && locations[currentLocation][index];
-  if (!machine) return;
-  if (!confirm("Remove " + machine[0] + " from this location?")) return;
-  locations[currentLocation].splice(index,1);
-  saveData();
-  renderMachines();
-}
-function syncLocationSelection(id) {
-  if (!locations[id]) return;
-  currentLocation = id;
-  document.getElementById("locationSelect").value = id;
-  document.getElementById("machineLocation").value = id;
-  renderMachines();
-}
-document.getElementById("locationSelect").addEventListener("change",function(){syncLocationSelection(this.value);});
-document.getElementById("machineLocation").addEventListener("change",function(){syncLocationSelection(this.value);});
 
-document.getElementById("addLocationButton").addEventListener("click",function(){
-  document.getElementById("newLocationName").value = "";
-  document.getElementById("addLocationModal").style.display = "flex";
-  document.getElementById("newLocationName").focus();
-});
-document.getElementById("cancelAddLocation").addEventListener("click",function(){
-  document.getElementById("addLocationModal").style.display = "none";
-});
-document.getElementById("saveAddLocation").addEventListener("click",function(){
-  const input = document.getElementById("newLocationName");
-  const name = input.value.trim();
-  if (!name) { alert("Please enter a location name."); input.focus(); return; }
-  const duplicate = Object.values(locationNames).some(n => n.toLowerCase() === name.toLowerCase());
-  if (duplicate) { alert("This location already exists. Please enter a different name."); input.focus(); return; }
-  const id = "location-" + Date.now();
-  locationNames[id] = name;
-  locations[id] = [];
-  saveData();
-  populateLocationSelectors();
-  syncLocationSelection(id);
-  document.getElementById("addLocationModal").style.display = "none";
-  alert(name + " has been added successfully. Register its washers and dryers using Add Machine.");
-});
-document.getElementById("addLocationModal").addEventListener("click",function(e){if(e.target===this)this.style.display="none";});
-document.getElementById("newLocationName").addEventListener("keydown",function(e){if(e.key==="Enter")document.getElementById("saveAddLocation").click();});
+    locations[currentLocation][index][1]=newStatus;
 
-document.getElementById("addMachineButton").addEventListener("click",function(){
-  if (!currentLocation) { alert("Select or add a laundry location first."); return; }
-  document.getElementById("newMachineName").value = "";
-  document.getElementById("newMachineType").value = "Washer";
-  document.getElementById("newMachineStatus").value = "Available";
-  document.getElementById("addMachineModal").style.display = "flex";
-  document.getElementById("newMachineName").focus();
-});
-document.getElementById("cancelAddMachine").addEventListener("click",function(){
-  document.getElementById("addMachineModal").style.display = "none";
-});
-document.getElementById("saveAddMachine").addEventListener("click",function(){
-  const nameInput = document.getElementById("newMachineName");
-  const name = nameInput.value.trim();
-  const type = document.getElementById("newMachineType").value;
-  const status = document.getElementById("newMachineStatus").value;
-  if (!name) { alert("Please enter a machine ID or name."); nameInput.focus(); return; }
-  const exists = (locations[currentLocation] || []).some(m => m[0].toLowerCase() === name.toLowerCase());
-  if (exists) { alert("This machine ID already exists at this location."); nameInput.focus(); return; }
-  const prefix = type === "Dryer" ? "dryer" : "washer";
-  if (!new RegExp("^" + prefix, "i").test(name)) {
-    alert("For clarity, use a machine name beginning with " + (type === "Dryer" ? "Dryer" : "Washer") + ", for example " + (type === "Dryer" ? "Dryer 03" : "Washer 07") + ".");
-    nameInput.focus();
-    return;
-  }
-  locations[currentLocation].push([name,status]);
-  saveData();
-  document.getElementById("addMachineModal").style.display = "none";
-  renderMachines();
-});
-document.getElementById("addMachineModal").addEventListener("click",function(e){if(e.target===this)this.style.display="none";});
-document.getElementById("newMachineName").addEventListener("keydown",function(e){if(e.key==="Enter")document.getElementById("saveAddMachine").click();});
+    if(newStatus==="In Use") {
+        if(locations[currentLocation][index][2]===0) {
+            locations[currentLocation][index][2]=30;
+        }
+    } else {
+        locations[currentLocation][index][2]=0;
+    }
 
-document.querySelectorAll(".menu a").forEach(link => {
-  link.addEventListener("click",function(event){
-    event.preventDefault();
-    const page = this.dataset.page;
-    document.querySelectorAll(".page").forEach(section=>section.classList.remove("active"));
-    document.getElementById(page).classList.add("active");
-    document.querySelectorAll(".menu a").forEach(item=>item.classList.remove("active"));
-    this.classList.add("active");
-  });
-});
-function requestAd(space) {
-  alert("Thank you for your interest in QLess advertising! You selected: " + space + ". Please contact the QLess team for rental information.");
+    renderMachines();
+
+    alert("Machine status updated to: "+newStatus);
 }
-loadSavedData();
-populateLocationSelectors();
+
+document.getElementById("locationSelect")
+.addEventListener("change",function(){
+
+    currentLocation=this.value;
+
+    document.getElementById("machineLocation").value=currentLocation;
+
+    renderMachines();
+
+});
+
+document.getElementById("machineLocation")
+.addEventListener("change",function(){
+
+    currentLocation=this.value;
+
+    document.getElementById("locationSelect").value=currentLocation;
+
+    renderMachines();
+
+});
+
+document.querySelectorAll(".menu a")
+.forEach(link=>{
+
+    link.addEventListener("click",function(event){
+
+        event.preventDefault();
+
+        const page=this.dataset.page;
+
+        document.querySelectorAll(".page")
+        .forEach(section=>section.classList.remove("active"));
+
+        document.getElementById(page).classList.add("active");
+
+        document.querySelectorAll(".menu a")
+        .forEach(item=>item.classList.remove("active"));
+
+        this.classList.add("active");
+
+    });
+
+});
+
+function requestAd(space){
+
+    alert(
+        "Thank you for your interest in QLess advertising! " +
+        "Selected space: "+space+
+        ". Please contact the QLess team for rental information."
+    );
+
+}
+
 renderMachines();
+
 </script>
 
 </body>
 </html>
+```
