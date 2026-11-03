@@ -1,91 +1,545 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>QLess | Admin Dashboard</title>
 <style>
 :root{--blue:#173b73;--blue2:#24559a;--cream:#f7f4eb;--gold:#d9ad45;--ink:#1e2b3d;--muted:#718096;--green:#168653;--amber:#a66b00;--red:#b83d45}
-*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}body{background:var(--cream);color:var(--ink)}
-.sidebar{position:fixed;inset:0 auto 0 0;width:240px;background:var(--blue);color:white;padding:26px 18px}.logo{font-size:29px;font-weight:bold}.logo span{color:var(--gold)}.sub{font-size:10px;letter-spacing:1px;color:#d7e2f4;margin:7px 0 40px}
-.label{font-size:10px;color:#b8c9e2;text-transform:uppercase;margin:22px 10px 10px}.nav a{display:block;color:#e4ebf6;text-decoration:none;padding:12px;border-radius:8px;margin:5px 0;font-size:13px}.nav a:hover,.nav a.active{background:#2b5b9b;border-left:3px solid var(--gold)}
-.main{margin-left:240px;padding:28px 32px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;gap:12px}.top h1{font-size:24px;color:var(--blue)}.top p{font-size:12px;color:var(--muted);margin-top:6px}.pill{background:white;border-radius:25px;padding:10px 14px;font-size:12px}
-.hero{background:linear-gradient(110deg,var(--blue),var(--blue2));color:white;padding:25px;border-radius:16px;margin-bottom:22px}.hero h2{font-size:22px;margin-bottom:8px}.hero p{font-size:13px;line-height:1.6;color:#e5edf8}.tag{display:inline-block;background:var(--gold);color:#26364e;padding:7px 12px;border-radius:20px;font-size:10px;font-weight:bold;margin-top:13px}
-.head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:24px 0 13px;flex-wrap:wrap}.head h2{font-size:17px;color:var(--blue)}.controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+body{background:var(--cream);color:var(--ink)}
+.sidebar{position:fixed;inset:0 auto 0 0;width:240px;background:var(--blue);color:white;padding:26px 18px}
+.logo{font-size:29px;font-weight:bold}
+.logo span{color:var(--gold)}
+.sub{font-size:10px;letter-spacing:1px;color:#d7e2f4;margin:7px 0 40px}
+.label{font-size:10px;color:#b8c9e2;text-transform:uppercase;margin:22px 10px 10px}
+.nav a{display:block;color:#e4ebf6;text-decoration:none;padding:12px;border-radius:8px;margin:5px 0;font-size:13px}
+.nav a:hover,.nav a.active{background:#2b5b9b;border-left:3px solid var(--gold)}
+.main{margin-left:240px;padding:28px 32px}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;gap:12px}
+.top h1{font-size:24px;color:var(--blue)}
+.top p{font-size:12px;color:var(--muted);margin-top:6px}
+.pill{background:white;border-radius:25px;padding:10px 14px;font-size:12px}
+.hero{background:linear-gradient(110deg,var(--blue),var(--blue2));color:white;padding:25px;border-radius:16px;margin-bottom:22px}
+.hero h2{font-size:22px;margin-bottom:8px}
+.hero p{font-size:13px;line-height:1.6;color:#e5edf8}
+.tag{display:inline-block;background:var(--gold);color:#26364e;padding:7px 12px;border-radius:20px;font-size:10px;font-weight:bold;margin-top:13px}
+.head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:24px 0 13px;flex-wrap:wrap}
+.head h2{font-size:17px;color:var(--blue)}
+.controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 select,input{border:1px solid #d7deea;background:white;padding:10px 12px;border-radius:8px;font-size:12px;color:var(--ink);min-width:160px}
-button{border:0;background:var(--blue2);color:white;padding:10px 13px;border-radius:8px;font-size:12px;font-weight:bold;cursor:pointer}button.gold{background:var(--gold);color:#26364e}button.light{background:white;color:var(--blue);border:1px solid #ccd7e6}
-.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}.card,.machine,.panel{background:white;border-radius:13px;padding:17px;box-shadow:0 6px 20px #173b7310;border:1px solid #edf0f4}.card small{font-size:11px;color:var(--muted)}.card strong{display:block;font-size:27px;color:var(--blue);margin:9px 0 4px}.card span{font-size:10px;color:var(--muted)}
-.panel{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.panel h3{font-size:15px;color:var(--blue);margin-bottom:5px}.panel p,.note{font-size:11px;color:var(--muted);line-height:1.5}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}.machine{padding:15px}.machine-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:11px}.icon{width:66px;height:66px;flex:0 0 66px;border:4px solid var(--green);border-radius:50%;display:grid;place-items:center;background:#f7fafc;font-size:22px}.icon svg{width:39px;height:39px}.icon.inuse{border-color:#d97706;animation:adminInUsePulse 1.8s ease-in-out infinite}.icon.reserved{border-color:var(--blue2)}.icon.maintenance{border-color:var(--red)}.icon.completed{border-color:var(--gold)}.icon.inuse .drum{display:inline;transform-box:view-box;transform-origin:24px 26px;animation:adminDrumSpin 1.1s linear infinite;will-change:transform}@keyframes adminDrumSpin{to{transform:rotate(360deg)}}@keyframes adminInUsePulse{0%,100%{box-shadow:0 0 0 0 #d9770620}50%{box-shadow:0 0 0 5px #d9770620}}.machine h3{font-size:14px;color:var(--blue);margin-bottom:5px}.machine p{font-size:11px;color:var(--muted);margin-bottom:10px}
-.status{font-size:10px;font-weight:bold;padding:6px 8px;border-radius:20px}.available{background:#e2f5eb;color:var(--green)}.inuse{background:#e8f0fb;color:var(--blue2)}.completed{background:#fff2d4;color:var(--amber)}.maintenance{background:#fde8e8;color:var(--red)}
-.machine-actions{display:flex;gap:6px;margin-top:11px}.machine-actions select{min-width:0;width:100%;padding:7px}.empty{grid-column:1/-1;background:white;padding:25px;text-align:center;color:var(--muted);border-radius:12px}
-.note{margin-top:12px}.footer{text-align:center;color:var(--muted);font-size:11px;margin:28px 0}
-.backdrop{display:none;position:fixed;inset:0;background:#10213c88;z-index:10;align-items:center;justify-content:center;padding:15px}.modal{background:white;width:min(420px,100%);padding:22px;border-radius:15px}.modal h3{color:var(--blue);margin-bottom:14px}.field{margin:12px 0}.field label{display:block;font-size:12px;font-weight:bold;margin-bottom:6px}.field input,.field select{width:100%}.actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}
+button{border:0;background:var(--blue2);color:white;padding:10px 13px;border-radius:8px;font-size:12px;font-weight:bold;cursor:pointer}
+button.gold{background:var(--gold);color:#26364e}
+button.light{background:white;color:var(--blue);border:1px solid #ccd7e6}
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.card,.machine,.panel{background:white;border-radius:13px;padding:17px;box-shadow:0 6px 20px #173b7310;border:1px solid #edf0f4}
+.card small{font-size:11px;color:var(--muted)}
+.card strong{display:block;font-size:27px;color:var(--blue);margin:9px 0 4px}
+.card span{font-size:10px;color:var(--muted)}
+.panel{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.panel h3{font-size:15px;color:var(--blue);margin-bottom:5px}
+.panel p,.note{font-size:11px;color:var(--muted);line-height:1.5}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}
+.machine{padding:15px}
+.machine-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:11px}
+.icon{width:66px;height:66px;flex:0 0 66px;border:4px solid var(--green);border-radius:50%;display:grid;place-items:center;background:#f7fafc;font-size:22px}
+.icon svg{width:39px;height:39px}
+.icon.inuse{border-color:#d97706;animation:adminInUsePulse 1.8s ease-in-out infinite}
+.icon.reserved{border-color:var(--blue2)}
+.icon.maintenance{border-color:var(--red)}
+.icon.completed{border-color:var(--gold)}
+.icon.inuse .drum{display:inline;transform-box:view-box;transform-origin:24px 26px;animation:adminDrumSpin 1.1s linear infinite;will-change:transform}
+@keyframes adminDrumSpin{to{transform:rotate(360deg)}}
+@keyframes adminInUsePulse{0%,100%{box-shadow:0 0 0 0 #d9770620}50%{box-shadow:0 0 0 5px #d9770620}}
+.machine h3{font-size:14px;color:var(--blue);margin-bottom:5px}
+.machine p{font-size:11px;color:var(--muted);margin-bottom:10px}
+.status{font-size:10px;font-weight:bold;padding:6px 8px;border-radius:20px}
+.available{background:#e2f5eb;color:var(--green)}
+.inuse{background:#e8f0fb;color:var(--blue2)}
+.completed{background:#fff2d4;color:var(--amber)}
+.maintenance{background:#fde8e8;color:var(--red)}
+.machine-actions{display:flex;gap:6px;margin-top:11px}
+.machine-actions select{min-width:0;width:100%;padding:7px}
+.empty{grid-column:1/-1;background:white;padding:25px;text-align:center;color:var(--muted);border-radius:12px}
+.note{margin-top:12px}
+.footer{text-align:center;color:var(--muted);font-size:11px;margin:28px 0}
+.backdrop{display:none;position:fixed;inset:0;background:#10213c88;z-index:10;align-items:center;justify-content:center;padding:15px}
+.modal{background:white;width:min(420px,100%);padding:22px;border-radius:15px}
+.modal h3{color:var(--blue);margin-bottom:14px}
+.field{margin:12px 0}
+.field label{display:block;font-size:12px;font-weight:bold;margin-bottom:6px}
+.field input,.field select{width:100%}
+.actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}
+
+/* Advertisement Management */
+.ad-manager{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:18px}
+.ad-form,.ad-preview{background:#fff;border:1px solid #edf0f4;border-radius:13px;padding:17px;box-shadow:0 6px 20px #173b7310}
+.ad-form h3,.ad-preview h3{color:var(--blue);font-size:15px;margin-bottom:12px}
+.ad-form .field{margin:10px 0}
+.ad-form label{display:block;font-size:11px;font-weight:bold;margin-bottom:6px}
+.ad-form input,.ad-form textarea{width:100%;min-width:0;border:1px solid #d7deea;border-radius:8px;padding:10px;font:12px Arial}
+.ad-form textarea{min-height:68px;resize:vertical}
+.ad-form .row{display:flex;gap:8px}
+.ad-form .row>*{flex:1;min-width:0}
+.ad-list{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:14px}
+.ad-item{border:1px solid #e7ebf1;border-radius:10px;padding:12px;display:flex;gap:12px;align-items:center}
+.ad-thumb{width:86px;height:62px;border-radius:8px;object-fit:cover;background:#edf2fa;flex:0 0 86px}
+.ad-item strong{font-size:12px;color:var(--blue);display:block}
+.ad-item small{font-size:10px;color:var(--muted)}
+.ad-item .ad-actions{display:flex;gap:5px;margin-top:7px;flex-wrap:wrap}
+.ad-item button{padding:6px 8px;font-size:10px}
+.ad-preview-box{min-height:150px;border-radius:12px;padding:20px;color:white;display:flex;flex-direction:column;justify-content:center;background:linear-gradient(120deg,#173b73,#24559a)}
+.ad-preview-box h4{font-size:19px;margin-bottom:8px}
+.ad-preview-box p{font-size:12px;line-height:1.5}
+.ad-preview-box a{color:#173b73;background:#d9ad45;padding:8px 12px;border-radius:20px;text-decoration:none;font-size:11px;font-weight:bold;align-self:flex-start;margin-top:12px}
+@media(max-width:850px){.ad-manager{grid-template-columns:1fr}.ad-list{grid-template-columns:1fr}}
 @media(max-width:1050px){.stats{grid-template-columns:repeat(3,1fr)}.grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:720px){.sidebar{position:relative;width:100%;height:auto;padding:17px}.sub,.label{display:none}.nav{display:flex;flex-wrap:wrap}.nav a{padding:9px}.main{margin:0;padding:18px}.stats{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:430px){.stats,.grid{grid-template-columns:1fr}.top{align-items:flex-start;flex-direction:column}}
-</style></head><body>
-<aside class="sidebar"><div class="logo">Q<span>Less.</span></div><div class="sub">SMART LAUNDRY MANAGEMENT</div>
-<div class="label">Main Menu</div><nav class="nav"><a class="active" href="#overview">▦ Overview</a><a href="#locations">⌖ Location Management</a><a href="#machines">▣ Machine Management</a></nav>
-<div class="label">System</div><nav class="nav"><a href="#notes">⚙ Settings & Notes</a></nav></aside>
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+<div class="logo">Q<span>Less.</span></div>
+<div class="sub">SMART LAUNDRY MANAGEMENT</div>
+<div class="label">Main Menu</div>
+<nav class="nav">
+<a class="active" href="#overview">▦ Overview</a>
+<a href="#locations">⌖ Location Management</a>
+<a href="#machines">▣ Machine Management</a>
+<a href="#advertisements">▧ Advertisements</a>
+</nav>
+<div class="label">System</div>
+<nav class="nav"><a href="#notes">⚙ Settings & Notes</a></nav>
+</aside>
+
 <main class="main">
-<header class="top"><div><h1>Admin Dashboard</h1><p>Manage every QLess-enabled laundry location from one place.</p></div><div class="pill">👤 Admin Account</div></header>
-<section class="hero" id="overview"><h2>Welcome to QLess Admin 👋</h2><p>Monitor washing machines and dryers across all hostel laundry locations. Select a location to view its machines and operational status.</p><div class="tag">ONE SYSTEM · ALL LAUNDRY MACHINES</div></section>
-<div class="head"><h2>System Overview</h2><select id="overviewFilter" aria-label="Overview filter"></select></div>
+<header class="top">
+<div>
+<h1>Admin Dashboard</h1>
+<p>Manage every QLess-enabled laundry location from one place.</p>
+</div>
+<div class="pill">👤 Admin Account</div>
+</header>
+
+<section class="hero" id="overview">
+<h2>Welcome to QLess Admin 👋</h2>
+<p>Monitor washing machines and dryers across all hostel laundry locations. Select a location to view its machines and operational status.</p>
+<div class="tag">ONE SYSTEM · ALL LAUNDRY MACHINES</div>
+</section>
+
+<div class="head">
+<h2>System Overview</h2>
+<select id="overviewFilter" aria-label="Overview filter"></select>
+</div>
+
 <section class="stats">
 <div class="card"><small>Total Locations</small><strong id="totalLocations">0</strong><span>Registered locations</span></div>
 <div class="card"><small>Total Machines</small><strong id="totalMachines">0</strong><span>Washers and dryers</span></div>
 <div class="card"><small>Available</small><strong id="availableCount">0</strong><span>Ready to use</span></div>
 <div class="card"><small>In Use</small><strong id="inUseCount">0</strong><span>Currently operating</span></div>
-<div class="card"><small>Attention Required</small><strong id="attentionCount">0</strong><span>Completed or maintenance</span></div></section>
-<div class="head" id="locations"><h2>Location Management</h2><button class="gold" id="addLocation">＋ Add Location</button></div>
-<section class="panel"><div><h3 id="locationName">Kolej Kediaman A</h3><p id="locationMeta">Location details</p></div><div class="controls"><label for="locationSelect" style="font-size:12px;font-weight:bold">Selected location</label><select id="locationSelect"></select><button class="light" id="renameLocation">Rename</button></div></section>
+<div class="card"><small>Attention Required</small><strong id="attentionCount">0</strong><span>Completed or maintenance</span></div>
+</section>
+
+<div class="head" id="locations">
+<h2>Location Management</h2>
+<button class="gold" id="addLocation">＋ Add Location</button>
+</div>
+
+<section class="panel">
+<div>
+<h3 id="locationName">Kolej Kediaman A</h3>
+<p id="locationMeta">Location details</p>
+</div>
+<div class="controls">
+<label for="locationSelect" style="font-size:12px;font-weight:bold">Selected location</label>
+<select id="locationSelect"></select>
+<button class="light" id="renameLocation">Rename</button>
+</div>
+</section>
+
 <p class="note">Prototype records are saved in this browser. Sample locations and machines are demonstration data and can be edited. They are not yet connected to physical ESP32 sensors.</p>
-<div class="head" id="machines"><h2>Machine Management</h2><button id="addMachine">＋ Add Machine</button></div><section id="machineGrid" class="grid"></section>
-<section class="panel" id="notes" style="margin-top:20px"><div><h3>System Notes</h3><p>All washers and dryers registered at each hostel laundry location are intended to be integrated with QLess. Live status updates require ESP32/sensor and backend integration.</p></div></section>
-<div class="footer">QLess Smart Laundry Management System · Less Waiting, More Convenience · © 2026</div></main>
-<div class="backdrop" id="backdrop"><div class="modal"><h3 id="modalTitle">Add Location</h3><div id="modalFields"></div><div class="actions"><button class="light" id="cancel">Cancel</button><button id="save">Save</button></div></div></div>
+
+<div class="head" id="machines">
+<h2>Machine Management</h2>
+<button id="addMachine">＋ Add Machine</button>
+</div>
+<section id="machineGrid" class="grid"></section>
+
+<div class="head" id="advertisements">
+<h2>Advertisement Management</h2>
+<span class="note">Manage banners displayed on the Student Dashboard</span>
+</div>
+
+<section class="ad-manager">
+<div class="ad-form">
+<h3 id="adFormTitle">Add New Advertisement</h3>
+
+<div class="field">
+<label for="adTitle">Advertisement title</label>
+<input id="adTitle" maxlength="60" placeholder="e.g. Campus Partner Offers">
+</div>
+
+<div class="field">
+<label for="adDescription">Description</label>
+<textarea id="adDescription" maxlength="180" placeholder="Short promotional message"></textarea>
+</div>
+
+<div class="field">
+<label for="adImage">Image URL (optional)</label>
+<input id="adImage" type="url" placeholder="https://...">
+</div>
+
+<div class="row">
+<div class="field">
+<label for="adButton">Button label</label>
+<input id="adButton" maxlength="24" placeholder="Learn More">
+</div>
+<div class="field">
+<label for="adLink">Destination URL (optional)</label>
+<input id="adLink" type="url" placeholder="https://...">
+</div>
+</div>
+
+<div class="row">
+<div class="field">
+<label for="adBg">Banner colour</label>
+<input id="adBg" type="color" value="#173b73" style="height:38px;padding:3px">
+</div>
+<div class="field">
+<label for="adActive">Display status</label>
+<select id="adActive">
+<option value="true">Active</option>
+<option value="false">Inactive</option>
+</select>
+</div>
+</div>
+
+<div class="actions">
+<button class="light" id="clearAdForm" type="button">Clear</button>
+<button id="saveAd" type="button">Save Advertisement</button>
+</div>
+<p class="note">Use a publicly accessible image URL. Keep the message short for the moving banner.</p>
+</div>
+
+<div class="ad-preview">
+<h3>Banner Preview</h3>
+<div class="ad-preview-box" id="adPreview">
+<h4>Advertisement title</h4>
+<p>Your promotional message will appear here.</p>
+</div>
+<p class="note">The Student Dashboard rotates active advertisements automatically.</p>
+</div>
+</section>
+
+<section class="panel" style="display:block">
+<h3>Saved Advertisements</h3>
+<p>Activate, deactivate, edit or delete advertisements.</p>
+<div class="ad-list" id="adList"></div>
+</section>
+
+<section class="panel" id="notes" style="margin-top:20px">
+<div>
+<h3>System Notes</h3>
+<p>All washers and dryers registered at each hostel laundry location are intended to be integrated with QLess. Live status updates require ESP32/sensor and backend integration.</p>
+</div>
+</section>
+
+<div class="footer">QLess Smart Laundry Management System · Less Waiting, More Convenience · © 2026</div>
+</main>
+
+<div class="backdrop" id="backdrop">
+<div class="modal">
+<h3 id="modalTitle">Add Location</h3>
+<div id="modalFields"></div>
+<div class="actions">
+<button class="light" id="cancel">Cancel</button>
+<button id="save">Save</button>
+</div>
+</div>
+</div>
+
 <script>
 const KEY="qless_admin_prototype_v1";
+
 const demo={locations:[
 {id:"loc-a",name:"Kolej Kediaman A",machines:[
-{id:"WA-01",type:"Washer",status:"Available"},{id:"WA-02",type:"Washer",status:"In Use"},{id:"WA-03",type:"Washer",status:"Available"},{id:"WA-04",type:"Washer",status:"Completed"},{id:"DR-01",type:"Dryer",status:"Available"},{id:"DR-02",type:"Dryer",status:"Maintenance"}]},
+{id:"WA-01",type:"Washer",status:"Available"},
+{id:"WA-02",type:"Washer",status:"In Use"},
+{id:"WA-03",type:"Washer",status:"Available"},
+{id:"WA-04",type:"Washer",status:"Completed"},
+{id:"DR-01",type:"Dryer",status:"Available"},
+{id:"DR-02",type:"Dryer",status:"Maintenance"}]},
 {id:"loc-b",name:"Kolej Kediaman B",machines:[
-{id:"WB-01",type:"Washer",status:"Available"},{id:"WB-02",type:"Washer",status:"In Use"},{id:"DB-01",type:"Dryer",status:"Available"},{id:"DB-02",type:"Dryer",status:"Available"}]}]};
-let state;try{state=JSON.parse(localStorage.getItem(KEY))||demo}catch(e){state=demo}
+{id:"WB-01",type:"Washer",status:"Available"},
+{id:"WB-02",type:"Washer",status:"In Use"},
+{id:"DB-01",type:"Dryer",status:"Available"},
+{id:"DB-02",type:"Dryer",status:"Available"}]}]};
+
+let state;
+try{state=JSON.parse(localStorage.getItem(KEY))||demo}catch(e){state=demo}
+
 let selected=state.locations[0]?.id||"",mode="";
 const $=id=>document.getElementById(id);
 const current=()=>state.locations.find(x=>x.id===selected)||state.locations[0];
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const cls=s=>s==="Available"?"available":s==="In Use"?"inuse":s==="Reserved"?"reserved":s==="Completed"?"completed":"maintenance";
+
 function saveState(){localStorage.setItem(KEY,JSON.stringify(state))}
+
 function render(){
  const loc=current(),opts=state.locations.map(l=>`<option value="${l.id}">${esc(l.name)}</option>`).join("");
- $("locationSelect").innerHTML=opts||'<option value="">No locations</option>';if(loc)$("locationSelect").value=loc.id;
- const f=$("overviewFilter").value||"all";$("overviewFilter").innerHTML='<option value="all">All locations</option>'+opts;$("overviewFilter").value=f;
+ $("locationSelect").innerHTML=opts||'<option value="">No locations</option>';
+ if(loc)$("locationSelect").value=loc.id;
+
+ const f=$("overviewFilter").value||"all";
+ $("overviewFilter").innerHTML='<option value="all">All locations</option>'+opts;
+ $("overviewFilter").value=f;
+
  const machines=f==="all"?state.locations.flatMap(l=>l.machines):(state.locations.find(l=>l.id===f)?.machines||[]);
- $("totalLocations").textContent=state.locations.length;$("totalMachines").textContent=machines.length;
+ $("totalLocations").textContent=state.locations.length;
+ $("totalMachines").textContent=machines.length;
  $("availableCount").textContent=machines.filter(m=>m.status==="Available").length;
  $("inUseCount").textContent=machines.filter(m=>m.status==="In Use").length;
  $("attentionCount").textContent=machines.filter(m=>["Completed","Maintenance"].includes(m.status)).length;
+
  $("locationName").textContent=loc?loc.name:"No location selected";
  $("locationMeta").textContent=loc?`${loc.machines.length} machines · ${loc.machines.filter(m=>m.type==="Washer").length} washers · ${loc.machines.filter(m=>m.type==="Dryer").length} dryers`:"Add a location to begin";
- const grid=$("machineGrid");if(!loc||!loc.machines.length){grid.innerHTML='<div class="empty">No machines registered here yet. Select “Add Machine” to register a machine.</div>';return}
- grid.innerHTML=loc.machines.map(m=>`<article class="machine"><div class="machine-top"><div class="icon ${cls(m.status)}">${m.type==="Washer"?`<svg viewBox="0 0 48 48" aria-hidden="true"><rect x="7" y="4" width="34" height="40" rx="6" fill="none" stroke="#173b7a" stroke-width="2.5"/><circle cx="24" cy="26" r="11" fill="none" stroke="#173b7a" stroke-width="2.5"/><g class="drum"><circle cx="24" cy="26" r="5" fill="#dce7f7"/><path d="M24 15 A11 11 0 0 1 35 26" fill="none" stroke="#e7b84b" stroke-width="2.4" stroke-linecap="round"/></g><circle cx="14" cy="11" r="1.5" fill="#e7b84b"/><path d="M20 11h13" stroke="#173b7a" stroke-width="2" stroke-linecap="round"/></svg>`:"♨️"}</div><span class="status ${cls(m.status)}">${m.status}</span></div><h3>${esc(m.id)}</h3><p>${m.type==="Washer"?"Washing machine":"Dryer"} · ${esc(loc.name)}</p><div class="machine-actions"><select data-status="${esc(m.id)}">${["Available","Reserved","In Use","Completed","Maintenance"].map(s=>`<option ${m.status===s?"selected":""}>${s}</option>`).join("")}</select><button class="light" data-delete="${esc(m.id)}">✕</button></div></article>`).join("");
- grid.querySelectorAll("[data-status]").forEach(el=>el.onchange=()=>{const m=loc.machines.find(x=>x.id===el.dataset.status);m.status=el.value;saveState();render()});
- grid.querySelectorAll("[data-delete]").forEach(el=>el.onclick=()=>{if(confirm("Remove this machine?")){loc.machines=loc.machines.filter(m=>m.id!==el.dataset.delete);saveState();render()}});
+
+ const grid=$("machineGrid");
+ if(!loc||!loc.machines.length){
+  grid.innerHTML='<div class="empty">No machines registered here yet. Select "Add Machine" to register a machine.</div>';
+  return;
+ }
+
+ grid.innerHTML=loc.machines.map(m=>`<article class="machine">
+ <div class="machine-top">
+ <div class="icon ${cls(m.status)}">
+ ${m.type==="Washer"?`<svg viewBox="0 0 48 48" aria-hidden="true">
+ <rect x="7" y="4" width="34" height="40" rx="6" fill="none" stroke="#173b7a" stroke-width="2.5"/>
+ <circle cx="24" cy="26" r="11" fill="none" stroke="#173b7a" stroke-width="2.5"/>
+ <g class="drum">
+ <circle cx="24" cy="26" r="5" fill="#dce7f7"/>
+ <path d="M24 15 A11 11 0 0 1 35 26" fill="none" stroke="#e7b84b" stroke-width="2.4" stroke-linecap="round"/>
+ </g>
+ <circle cx="14" cy="11" r="1.5" fill="#e7b84b"/>
+ <path d="M20 11h13" stroke="#173b7a" stroke-width="2" stroke-linecap="round"/>
+ </svg>`:"♨️"}
+ </div>
+ <span class="status ${cls(m.status)}">${m.status}</span>
+ </div>
+ <h3>${esc(m.id)}</h3>
+ <p>${m.type==="Washer"?"Washing machine":"Dryer"} · ${esc(loc.name)}</p>
+ <div class="machine-actions">
+ <select data-status="${esc(m.id)}">
+ ${["Available","Reserved","In Use","Completed","Maintenance"].map(s=>`<option ${m.status===s?"selected":""}>${s}</option>`).join("")}
+ </select>
+ <button class="light" data-delete="${esc(m.id)}">✕</button>
+ </div>
+ </article>`).join("");
+
+ grid.querySelectorAll("[data-status]").forEach(el=>el.onchange=()=>{
+  const m=loc.machines.find(x=>x.id===el.dataset.status);
+  m.status=el.value;
+  saveState();
+  render();
+ });
+
+ grid.querySelectorAll("[data-delete]").forEach(el=>el.onclick=()=>{
+  if(confirm("Remove this machine?")){
+   loc.machines=loc.machines.filter(m=>m.id!==el.dataset.delete);
+   saveState();
+   render();
+  }
+ });
 }
-function openModal(m){mode=m;$("modalTitle").textContent=m==="location"?"Add New Location":m==="rename"?"Rename Location":"Register New Machine";
- $("modalFields").innerHTML=m==="machine"?'<div class="field"><label>Machine ID</label><input id="machineId" placeholder="e.g. WC-01"></div><div class="field"><label>Machine type</label><select id="machineType"><option>Washer</option><option>Dryer</option></select></div><div class="field"><label>Initial status</label><select id="machineStatus"><option>Available</option><option>Reserved</option><option>In Use</option><option>Completed</option><option>Maintenance</option></select></div>':`<div class="field"><label>Location name</label><input id="locationField" maxlength="50" value="${m==="rename"?esc(current()?.name||""):""}" placeholder="e.g. Kolej Kediaman C"></div>`;
- $("backdrop").style.display="flex"}
+
+function openModal(m){
+ mode=m;
+ $("modalTitle").textContent=m==="location"?"Add New Location":m==="rename"?"Rename Location":"Register New Machine";
+
+ $("modalFields").innerHTML=m==="machine"
+ ?'<div class="field"><label>Machine ID</label><input id="machineId" placeholder="e.g. WC-01"></div><div class="field"><label>Machine type</label><select id="machineType"><option>Washer</option><option>Dryer</option></select></div><div class="field"><label>Initial status</label><select id="machineStatus"><option>Available</option><option>Reserved</option><option>In Use</option><option>Completed</option><option>Maintenance</option></select></div>'
+ :`<div class="field"><label>Location name</label><input id="locationField" maxlength="50" value="${m==="rename"?esc(current()?.name||""):""}" placeholder="e.g. Kolej Kediaman C"></div>`;
+
+ $("backdrop").style.display="flex";
+}
+
 function closeModal(){$("backdrop").style.display="none"}
-$("addLocation").onclick=()=>openModal("location");$("renameLocation").onclick=()=>current()?openModal("rename"):alert("Add a location first.");
+
+$("addLocation").onclick=()=>openModal("location");
+$("renameLocation").onclick=()=>current()?openModal("rename"):alert("Add a location first.");
 $("addMachine").onclick=()=>current()?openModal("machine"):alert("Add a location first.");
-$("cancel").onclick=closeModal;$("locationSelect").onchange=e=>{selected=e.target.value;render()};
+$("cancel").onclick=closeModal;
+$("locationSelect").onchange=e=>{selected=e.target.value;render()};
 $("overviewFilter").onchange=render;
+
 $("save").onclick=()=>{
- if(mode==="location"||mode==="rename"){const name=$("locationField").value.trim();if(!name){alert("Enter a location name.");return}
- if(mode==="location"){if(state.locations.some(l=>l.name.toLowerCase()===name.toLowerCase())){alert("Location already exists.");return}selected="loc-"+Date.now();state.locations.push({id:selected,name,machines:[]})}else current().name=name;
- }else{const id=$("machineId").value.trim().toUpperCase(),type=$("machineType").value,status=$("machineStatus").value;if(!id){alert("Enter a machine ID.");return}if(current().machines.some(m=>m.id.toLowerCase()===id.toLowerCase())){alert("Machine ID already exists at this location.");return}current().machines.push({id,type,status})}
- saveState();closeModal();render()};
+ if(mode==="location"||mode==="rename"){
+  const name=$("locationField").value.trim();
+  if(!name){alert("Enter a location name.");return}
+
+  if(mode==="location"){
+   if(state.locations.some(l=>l.name.toLowerCase()===name.toLowerCase())){
+    alert("Location already exists.");
+    return;
+   }
+   selected="loc-"+Date.now();
+   state.locations.push({id:selected,name,machines:[]});
+  }else{
+   current().name=name;
+  }
+ }else{
+  const id=$("machineId").value.trim().toUpperCase();
+  const type=$("machineType").value;
+  const status=$("machineStatus").value;
+  if(!id){alert("Enter a machine ID.");return}
+  if(current().machines.some(m=>m.id.toLowerCase()===id.toLowerCase())){
+   alert("Machine ID already exists at this location.");
+   return;
+  }
+  current().machines.push({id,type,status});
+ }
+ saveState();
+ closeModal();
+ render();
+};
+
+/* Advertisement Management */
+const ADS_KEY="qless_shared_advertisements_v1";
+let ads=loadAds(),editingAdId=null;
+
+function loadAds(){
+ try{return JSON.parse(localStorage.getItem(ADS_KEY))||[]}
+ catch(e){return []}
+}
+
+function persistAds(){
+ localStorage.setItem(ADS_KEY,JSON.stringify(ads));
+ renderAds();
+}
+
+function adVal(id){return $(id).value.trim()}
+
+function clearAdForm(){
+ editingAdId=null;
+ ["adTitle","adDescription","adImage","adButton","adLink"].forEach(id=>$(id).value="");
+ $("adBg").value="#173b73";
+ $("adActive").value="true";
+ $("adFormTitle").textContent="Add New Advertisement";
+ $("saveAd").textContent="Save Advertisement";
+ previewAd();
+}
+
+function previewAd(){
+ const title=adVal("adTitle")||"Advertisement title";
+ const desc=adVal("adDescription")||"Your promotional message will appear here.";
+ const bg=$("adBg").value;
+ const img=adVal("adImage");
+
+ $("adPreview").style.background=img
+ ?`linear-gradient(90deg,#10213ccc,#10213c55),url("${img}") center/cover,${bg}`
+ :`linear-gradient(120deg,${bg},#24559a)`;
+
+ $("adPreview").innerHTML=`<h4>${esc(title)}</h4><p>${esc(desc)}</p>`;
+}
+
+function renderAds(){
+ const list=$("adList");
+ if(!list)return;
+
+ if(!ads.length){
+  list.innerHTML='<p class="note">No advertisements added yet.</p>';
+  return;
+ }
+
+ list.innerHTML=ads.map(a=>`<article class="ad-item">
+ <div style="width:86px;height:62px;border-radius:8px;background:${esc(a.bg||"#173b73")};flex:0 0 86px;display:grid;place-items:center;color:white;font-size:10px;overflow:hidden">
+ ${a.image?`<img class="ad-thumb" src="${esc(a.image)}" alt="">`:"QLess Ad"}
+ </div>
+ <div style="min-width:0;flex:1">
+ <strong>${esc(a.title)}</strong>
+ <small>${a.active?"Active":"Inactive"}</small>
+ <div class="ad-actions">
+ <button class="light" data-edit-ad="${a.id}">Edit</button>
+ <button class="gold" data-toggle-ad="${a.id}">${a.active?"Deactivate":"Activate"}</button>
+ <button class="light" data-delete-ad="${a.id}">Delete</button>
+ </div>
+ </div>
+ </article>`).join("");
+
+ list.querySelectorAll("[data-edit-ad]").forEach(b=>b.onclick=()=>{
+  const a=ads.find(x=>x.id===b.dataset.editAd);
+  if(!a)return;
+
+  editingAdId=a.id;
+  $("adTitle").value=a.title;
+  $("adDescription").value=a.description;
+  $("adImage").value=a.image||"";
+  $("adButton").value=a.button||"";
+  $("adLink").value=a.link||"";
+  $("adBg").value=a.bg||"#173b73";
+  $("adActive").value=String(a.active);
+  $("adFormTitle").textContent="Edit Advertisement";
+  $("saveAd").textContent="Update Advertisement";
+  previewAd();
+  $("advertisements").scrollIntoView({behavior:"smooth"});
+ });
+
+ list.querySelectorAll("[data-toggle-ad]").forEach(b=>b.onclick=()=>{
+  const a=ads.find(x=>x.id===b.dataset.toggleAd);
+  if(a){
+   a.active=!a.active;
+   persistAds();
+  }
+ });
+
+ list.querySelectorAll("[data-delete-ad]").forEach(b=>b.onclick=()=>{
+  if(confirm("Delete this advertisement?")){
+   ads=ads.filter(x=>x.id!==b.dataset.deleteAd);
+   persistAds();
+  }
+ });
+}
+
+["adTitle","adDescription","adImage","adBg"].forEach(id=>$(id).addEventListener("input",previewAd));
+
+$("clearAdForm").onclick=clearAdForm;
+
+$("saveAd").onclick=()=>{
+ const title=adVal("adTitle");
+ const description=adVal("adDescription");
+
+ if(!title||!description){
+  alert("Enter an advertisement title and description.");
+  return;
+ }
+
+ const item={
+  id:editingAdId||"ad-"+Date.now(),
+  title,
+  description,
+  image:adVal("adImage"),
+  button:adVal("adButton"),
+  link:adVal("adLink"),
+  bg:$("adBg").value,
+  active:$("adActive").value==="true"
+ };
+
+ if(editingAdId){
+  ads=ads.map(a=>a.id===editingAdId?item:a);
+ }else{
+  ads.push(item);
+ }
+
+ persistAds();
+ clearAdForm();
+ alert("Advertisement saved. Student Dashboard will show active advertisements when both pages share the same website origin.");
+};
+
+renderAds();
 render();
-</script></body></html>
+</script>
+</body>
+</html>
